@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap');
+
+.cadastro-content {
+  --background: #090e1c;
+  font-family: 'Nunito Sans', system-ui, sans-serif;
+}
+
+.cadastro {
+  --surface: #111827;
+  --border: #1f2937;
+  --accent: #00a585;
+  --accent-dark: #19a48a;
+  --text: #f8fafc;
+  --muted: #64748b;
+  --placeholder: #8b95a7;
+  --danger: #f43f5e;
+  --back-bg: #1c2536;
+
+  min-height: 100%;
+  padding: 38px 27px 28px;
+  color: var(--text);
+  font-family: 'Nunito Sans', system-ui, sans-serif;
+}
+
+/* Cabeçalho */
+.cadastro__header {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.cadastro__header h1 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 400;
+}
+
+.cadastro__back {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 9px;
+  background: var(--back-bg);
+  color: var(--text);
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.cadastro__back:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Formulário */
+.cadastro__form {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cadastro__label {
+  margin: 0 0 6px;
+  font-size: 10.5px;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+}
+
+.cadastro__input {
+  --background: var(--surface);
+  --color: var(--text);
+  --placeholder-color: var(--placeholder);
+  --placeholder-opacity: 1;
+  --padding-start: 15px;
+  --padding-end: 15px;
+
+  min-height: 44px;
+  margin-bottom: 13px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--surface);
+  font-size: 13px;
+  transition: border-color 0.2s;
+}
+
+.cadastro__input.has-focus {
+  border-color: var(--accent);
+}
+
+/* Mensagem de erro */
+.cadastro__error {
+  margin: 2px 0 14px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: #2d1d2d;
+  color: var(--danger);
+  font-size: 11.5px;
+}
+
+/* Botão */
+.cadastro__submit {
+  --background: var(--accent);
+  --background-activated: var(--accent-dark);
+  --background-hover: var(--accent-dark);
+  --color: #04211b;
+  --border-radius: 16px;
+  --box-shadow: none;
+
+  margin: 8px 0 0;
+  height: 46px;
+  font-size: 13.5px;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  border-radius: 16px;
+  overflow: hidden;
+}
