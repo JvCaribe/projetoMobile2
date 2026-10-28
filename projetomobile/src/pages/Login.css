@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap');
+
+.login-content {
+  --background: #090e1c;
+  font-family: 'Nunito Sans', system-ui, sans-serif;
+}
+
+.login {
+  --bg: #090e1c;
+  --surface: #111827;
+  --border: #1f2937;
+  --accent: #00a585;
+  --accent-dark: #19a48a;
+  --text: #f8fafc;
+  --muted: #64748b;
+
+  min-height: 100%;
+  padding: 56px 28px 28px;
+  color: var(--text);
+  font-family: 'Nunito Sans', system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+/* Marca */
+.login__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.login__logo {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #04211b;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+}
+
+.login__name {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+/* Título */
+.login__intro {
+  margin-top: 36px;
+}
+
+.login__intro h1 {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.login__intro p {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Formulário */
+.login__form {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+.login__label {
+  margin: 0 0 8px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+}
+
+.login__input {
+  --background: var(--surface);
+  --color: var(--text);
+  --placeholder-color: var(--muted);
+  --placeholder-opacity: 1;
+  --padding-start: 16px;
+  --padding-end: 16px;
+
+  min-height: 46px;
+  margin-bottom: 14px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--surface);
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+.login__input.has-focus {
+  border-color: var(--accent);
+}
+
+/* Campo de senha com ícone */
+.login__password {
+  position: relative;
+}
+
+.login__password .login__input {
+  margin-bottom: 10px;
+  --padding-end: 48px;
+}
+
+.login__eye {
+  position: absolute;
+  top: 0;
+  right: 4px;
+  height: 46px;
+  width: 44px;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  border: 0;
+  color: var(--muted);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.login__eye:focus-visible,
+.login__forgot:focus-visible,
+.login__signup a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* Links */
+.login__forgot {
+  align-self: flex-end;
+  padding: 4px 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* Botão */
+.login__submit {
+  --background: var(--accent);
+  --background-activated: var(--accent-dark);
+  --background-hover: var(--accent-dark);
+  --color: #04211b;
+  --border-radius: 16px;
+  --box-shadow: none;
+
+  margin: 16px 0 0;
+  height: 48px;
+  font-size: 15px;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.login__signup {
+  margin: 20px 0 0;
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.login__signup a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login__eye {
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.login__eye ion-icon {
+  font-size: 22px;
+  color: var(--muted);
+}
