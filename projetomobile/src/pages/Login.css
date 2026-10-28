@@ -15,28 +15,33 @@
   --muted: #64748b;
 
   min-height: 100%;
-  padding: 56px 28px 28px;
+  padding: 54px 27px 28px;
   color: var(--text);
   font-family: 'Nunito Sans', system-ui, sans-serif;
   display: flex;
   flex-direction: column;
 }
+
 /* Marca */
 .login__brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .login__logo {
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
   border-radius: 10px;
   background: var(--accent);
   color: #04211b;
   display: grid;
   place-items: center;
-  font-size: 18px;
+}
+
+.login__logo svg {
+  width: 18px;
+  height: 18px;
 }
 
 .login__name {
@@ -53,25 +58,25 @@
   margin: 0;
   font-size: 34px;
   font-weight: 400;
-  line-height: 1.2;
+  line-height: 40px;
 }
 
 .login__intro p {
-  margin: 8px 0 0;
-  font-size: 13px;
+  margin: 6px 0 0;
+  font-size: 12.5px;
   color: var(--muted);
 }
 
 /* Formulário */
 .login__form {
-  margin-top: 32px;
+  margin-top: 40px;
   display: flex;
   flex-direction: column;
 }
 
 .login__label {
-  margin: 0 0 8px;
-  font-size: 11px;
+  margin: 0 0 9px;
+  font-size: 10.5px;
   letter-spacing: 1.5px;
   color: var(--muted);
 }
@@ -81,16 +86,16 @@
   --color: var(--text);
   --placeholder-color: var(--muted);
   --placeholder-opacity: 1;
-  --padding-start: 16px;
-  --padding-end: 16px;
+  --padding-start: 15px;
+  --padding-end: 15px;
 
-  min-height: 46px;
-  margin-bottom: 14px;
+  min-height: 44px;
+  margin-bottom: 17px;
   border: 1px solid var(--border);
   border-radius: 16px;
   overflow: hidden;
   background: var(--surface);
-  font-size: 14px;
+  font-size: 13px;
   transition: border-color 0.2s;
 }
 
@@ -104,7 +109,6 @@
 }
 
 .login__password .login__input {
-  margin-bottom: 10px;
   --padding-end: 48px;
 }
 
@@ -112,15 +116,21 @@
   position: absolute;
   top: 0;
   right: 4px;
-  height: 46px;
+  height: 44px;
   width: 44px;
   display: grid;
   place-items: center;
   background: transparent;
   border: 0;
   color: var(--muted);
-  font-size: 20px;
   cursor: pointer;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.login__eye ion-icon {
+  font-size: 20px;
+  color: var(--muted);
 }
 
 .login__eye:focus-visible,
@@ -134,8 +144,7 @@
 /* Links */
 .login__forgot {
   align-self: flex-end;
-  padding: 4px 0;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--accent);
   text-decoration: none;
@@ -147,21 +156,23 @@
   --background-activated: var(--accent-dark);
   --background-hover: var(--accent-dark);
   --color: #04211b;
-  --border-radius: 16px;
+  --border-radius: 20px;
   --box-shadow: none;
 
-  margin: 16px 0 0;
-  height: 48px;
-  font-size: 15px;
+  margin: 17px 0 0;
+  height: 46px;
+  font-size: 14px;
   font-weight: 400;
   text-transform: none;
   letter-spacing: 0;
+  border-radius: 20px;
+  overflow: hidden;
 }
 
 .login__signup {
-  margin: 20px 0 0;
+  margin: 18px 0 0;
   text-align: center;
-  font-size: 13px;
+  font-size: 12px;
   color: var(--muted);
 }
 
@@ -169,14 +180,4 @@
   color: var(--accent);
   font-weight: 600;
   text-decoration: none;
-}
-
-.login__eye {
-  z-index: 10;
-  pointer-events: auto;
-}
-
-.login__eye ion-icon {
-  font-size: 22px;
-  color: var(--muted);
 }
