@@ -1,7 +1,7 @@
 Banco de Dados — Finanza
 
 -Objetivo:
-Este diretório contém os scripts SQL e a documentação do banco de dados do projeto Finanza, uma aplicação de gestão financeira pessoal.
+Este diretório contém os scripts SQL e a documentação do banco de dados do projeto Finanza (aplicação de gestão financeira pessoal).
 
 -Ambiente:
 SGBD: MySQL
@@ -9,6 +9,7 @@ SGBD: MySQL
 -Estrutura inicial:
 Tabela usuarios: Armazena os dados básicos dos usuários cadastrados na aplicação:
 id; nome; email; senha_hash
+Feito*
 
 
 -Próximas etapas:
