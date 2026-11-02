@@ -18,3 +18,10 @@ Feito*
 •Definir os relacionamentos entre as tabelas.
 •Preparar consultas para calcular o saldo financeiro.
 •Validar a estrutura com dados fictícios.
+
+*02/11/2026*
+Criação da tabela categorias;
+Criação da tabela transacoes;
+Cadastro das 13 categorias padrão;
+Relacionamentos entre as três tabelas;
+Testes de inserção, consulta com JOIN e integridade referencial;
