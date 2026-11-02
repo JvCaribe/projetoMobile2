@@ -6,6 +6,7 @@ Este diretório contém os scripts SQL e a documentação do banco de dados do p
 -Ambiente:
 SGBD: MySQL
 
+*28/10/2026*
 -Estrutura inicial:
 Tabela usuarios: Armazena os dados básicos dos usuários cadastrados na aplicação:
 id; nome; email; senha_hash
