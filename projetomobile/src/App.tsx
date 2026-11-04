@@ -1,9 +1,12 @@
 import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { Navigate, Route } from 'react-router-dom';
-import Login from './pages/Login';
+
 import Cadastro from './pages/Cadastro';
+import Configuracoes from "./pages/Configuracoes";
 import Dashboard from './pages/Dashboard';
+import Login from './pages/Login';
+// import Transacoes from "./pages/Transacoes";
 
 
 
@@ -46,7 +49,9 @@ const App: React.FC = () => (
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
         <Route path="/" element={<Navigate to="/login" replace />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        {/* <Route path="/transacoes" element={<Transacoes />} /> */}
+      <Route path="/configuracoes" element={<Configuracoes />} />
+      <Route path="/dashboard" element={<Dashboard />} />
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
