@@ -3,6 +3,8 @@ import { IonReactRouter } from '@ionic/react-router';
 import { Navigate, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Cadastro from './pages/Cadastro';
+import Dashboard from './pages/Dashboard';
+
 
 
 /* Core CSS required for Ionic components to work properly */
@@ -44,6 +46,7 @@ const App: React.FC = () => (
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
         <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
