@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { IonContent, IonFooter, IonIcon, IonPage } from '@ionic/react';
+import { IonContent, IonIcon, IonPage } from '@ionic/react';
 import { arrowDownOutline, arrowUpOutline, eyeOffOutline, eyeOutline } from 'ionicons/icons';
+import { useState } from 'react';
 import './Dashboard.css';
 
 /* ===== Dados de exemplo (trocar pela API depois) ===== */
