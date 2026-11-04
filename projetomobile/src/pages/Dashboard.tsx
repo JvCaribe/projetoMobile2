@@ -1,4 +1,5 @@
-import { IonContent, IonIcon, IonPage } from '@ionic/react';
+import { IonContent,IonFooter, IonIcon, IonPage } from '@ionic/react';
+import BarraNavegacao from '../components/BarraNavegacao';
 import { arrowDownOutline, arrowUpOutline, eyeOffOutline, eyeOutline } from 'ionicons/icons';
 import { useState } from 'react';
 import './Dashboard.css';
@@ -186,8 +187,13 @@ const Dashboard: React.FC = () => {
           </section>
         </main>
       </IonContent>
+
+      <IonFooter className="ion-no-border dash-footer">
+        <BarraNavegacao abaAtiva="dashboard" />
+      </IonFooter>
     </IonPage>
   );
 };
+
 
 export default Dashboard;
