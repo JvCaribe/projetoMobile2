@@ -1,0 +1,272 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Nunito+Sans:wght@400;600;700&display=swap");
+
+/* ------------------------------------------------------------------ */
+/* Tokens de cor (guia de estilo Finanza)                              */
+/* ------------------------------------------------------------------ */
+:root,
+:root[data-tema="escuro"] {
+  --cor-principal: #00a585;
+  --cor-secundaria: #19a48a;
+  --cor-bloco: #111827;
+  --cor-fundo: #090e1c;
+  --cor-texto: #f1f5f9;
+  --cor-texto-suave: #8493ad;
+  --cor-borda: rgba(148, 163, 184, 0.14);
+  --cor-botao-inativo: #1c2638;
+  --cor-sobre-principal: #04110e; /* texto sobre o verde: contraste alto */
+  --cor-moldura: #1a2236;
+}
+
+:root[data-tema="claro"] {
+  --cor-principal: #008f74;
+  --cor-secundaria: #199a82;
+  --cor-bloco: #ffffff;
+  --cor-fundo: #f4f7ff;
+  --cor-texto: #0f1b2d;
+  --cor-texto-suave: #5b6b82;
+  --cor-borda: rgba(15, 27, 45, 0.09);
+  --cor-botao-inativo: #eef2fb;
+  --cor-sobre-principal: #ffffff;
+  --cor-moldura: #dfe6f5;
+}
+
+/* ------------------------------------------------------------------ */
+/* Estrutura da tela (mobile 393 x 852)                                */
+/* ------------------------------------------------------------------ */
+.config-pagina {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--cor-moldura);
+  font-family: "Nunito Sans", system-ui, sans-serif;
+  transition: background-color 0.25s ease;
+}
+
+.config-tela {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 393px;
+  height: 852px;
+  max-width: 100%;
+  max-height: 100dvh;
+  overflow: hidden;
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Em telas maiores, a tela mobile aparece como um "aparelho" centralizado */
+@media (min-width: 440px) and (min-height: 880px) {
+  .config-tela {
+    border-radius: 28px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+  }
+}
+
+.config-conteudo {
+  flex: 1;
+  overflow-y: auto;
+  padding: 56px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.config-titulo {
+  margin: 0 0 8px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* ------------------------------------------------------------------ */
+/* Cards                                                               */
+/* ------------------------------------------------------------------ */
+.config-card {
+  background: var(--cor-bloco);
+  border: 1px solid var(--cor-borda);
+  border-radius: 20px;
+  padding: 20px;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.config-card__titulo {
+  margin: 0 0 16px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cor-texto-suave);
+}
+
+/* ------------------------------------------------------------------ */
+/* Opção de tema                                                       */
+/* ------------------------------------------------------------------ */
+.tema-opcoes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.tema-botao {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 134px;
+  padding: 16px 8px;
+  border: 1px solid transparent;
+  border-radius: 16px;
+  background: var(--cor-botao-inativo);
+  color: var(--cor-texto);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+}
+
+.tema-botao:active {
+  transform: scale(0.97);
+}
+
+.tema-botao--ativo {
+  background: var(--cor-principal);
+  color: var(--cor-sobre-principal);
+}
+
+.tema-botao__status {
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+/* ------------------------------------------------------------------ */
+/* Perfil                                                              */
+/* ------------------------------------------------------------------ */
+.perfil {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.perfil__avatar {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--cor-principal);
+  color: var(--cor-sobre-principal);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.perfil__dados {
+  min-width: 0;
+}
+
+.perfil__nome {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.perfil__email {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: var(--cor-texto-suave);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------------ */
+/* Sobre o app                                                         */
+/* ------------------------------------------------------------------ */
+.sobre {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sobre__linha {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sobre__rotulo {
+  font-size: 15px;
+  color: var(--cor-texto-suave);
+}
+
+.sobre__valor {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: right;
+}
+
+/* ------------------------------------------------------------------ */
+/* Navegação inferior                                                  */
+/* ------------------------------------------------------------------ */
+.config-nav {
+  flex-shrink: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: var(--cor-bloco);
+  border-top: 1px solid var(--cor-borda);
+  padding: 8px 8px calc(8px + env(safe-area-inset-bottom, 0px));
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 52px;
+  padding: 6px 4px;
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--cor-texto-suave);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.nav-item--ativo {
+  color: var(--cor-principal);
+  cursor: default;
+}
+
+/* ------------------------------------------------------------------ */
+/* Foco visível e movimento reduzido (acessibilidade)                  */
+/* ------------------------------------------------------------------ */
+.tema-botao:focus-visible,
+.nav-item:focus-visible {
+  outline: 2px solid var(--cor-principal);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .config-pagina,
+  .config-tela,
+  .config-card,
+  .config-nav,
+  .tema-botao,
+  .nav-item {
+    transition: none;
+  }
+}
