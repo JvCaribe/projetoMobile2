@@ -161,6 +161,175 @@ app.post('/api/auth/redefinir-senha', limiter, async (req, res, next) => {
   } finally { conexao.release(); }
 });
 
+app.post('/api/transacoes', autenticarToken, async (req, res, next) => {
+  try {
+    const { categoria_id, valor, descricao, data_transacao } = req.body || {};
+
+    // Valida os dados enviados
+    if (
+      !Number.isInteger(categoria_id) ||
+      categoria_id <= 0 ||
+      typeof valor !== 'number' ||
+      !Number.isFinite(valor) ||
+      valor <= 0 ||
+      valor > 99999999.99 ||
+      Math.abs(valor * 100 - Math.round(valor * 100)) > 0.000001 ||
+      (descricao != null && (typeof descricao !== 'string' || descricao.length > 255)) ||
+      typeof data_transacao !== 'string' ||
+      !/^\d{4}-\d{2}-\d{2}$/.test(data_transacao)
+    ) {
+      return res.status(400).json({
+        mensagem: 'Informe categoria, valor positivo, descricao e data validos.'
+      });
+    }
+
+    const data = new Date(`${data_transacao}T00:00:00Z`);
+    if (Number.isNaN(data.getTime()) || data.toISOString().slice(0, 10) !== data_transacao) {
+      return res.status(400).json({ mensagem: 'Data invalida.' });
+    }
+
+    // Verifica se a categoria e permitida para o usuario
+    const [categorias] = await db.execute(
+      'SELECT id FROM categorias WHERE id = ? AND (usuario_id IS NULL OR usuario_id = ?)',
+      [categoria_id, req.usuario.id]
+    );
+
+    if (!categorias.length) {
+      return res.status(400).json({ mensagem: 'Categoria invalida.' });
+    }
+
+    // Salva a transacao no MySQL
+    const [resultado] = await db.execute(
+      'INSERT INTO transacoes (usuario_id, categoria_id, valor, descricao, data_transacao) VALUES (?, ?, ?, ?, ?)',
+      [req.usuario.id, categoria_id, valor, descricao == null ? null : descricao.trim(), data_transacao]
+    );
+
+    return res.status(201).json({
+      mensagem: 'Transacao cadastrada com sucesso!',
+      id: resultado.insertId
+    });
+  } catch (erro) {
+    next(erro);
+  }
+});
+
+app.get('/api/transacoes', autenticarToken, async (req, res, next) => {
+  try {
+    const [transacoes] = await db.execute(
+      `SELECT
+         t.id,
+         t.categoria_id,
+         c.nome AS categoria,
+         c.tipo,
+         t.valor,
+         t.descricao,
+         DATE_FORMAT(t.data_transacao, '%Y-%m-%d') AS data_transacao
+       FROM transacoes t
+       INNER JOIN categorias c ON t.categoria_id = c.id
+       WHERE t.usuario_id = ?
+       ORDER BY t.data_transacao DESC, t.id DESC
+       LIMIT 100`,
+      [req.usuario.id]
+    );
+
+    return res.json({
+      mensagem: 'Transacoes consultadas com sucesso!',
+      transacoes
+    });
+  } catch (erro) {
+    next(erro);
+  }
+});
+
+app.put('/api/transacoes/:id', autenticarToken, async (req, res, next) => {
+  try {
+    const id = Number(req.params.id);
+    const { categoria_id, valor, descricao, data_transacao } = req.body || {};
+
+    if (!Number.isSafeInteger(id) || id <= 0) {
+      return res.status(400).json({ mensagem: 'ID invalido.' });
+    }
+
+    if (
+      !Number.isInteger(categoria_id) ||
+      categoria_id <= 0 ||
+      typeof valor !== 'number' ||
+      !Number.isFinite(valor) ||
+      valor <= 0 ||
+      valor > 99999999.99 ||
+      Math.abs(valor * 100 - Math.round(valor * 100)) > 0.000001 ||
+      (descricao != null && (typeof descricao !== 'string' || descricao.length > 255)) ||
+      typeof data_transacao !== 'string' ||
+      !/^\d{4}-\d{2}-\d{2}$/.test(data_transacao)
+    ) {
+      return res.status(400).json({ mensagem: 'Dados da transacao invalidos.' });
+    }
+
+    const data = new Date(`${data_transacao}T00:00:00Z`);
+    if (Number.isNaN(data.getTime()) || data.toISOString().slice(0, 10) !== data_transacao) {
+      return res.status(400).json({ mensagem: 'Data invalida.' });
+    }
+
+    const [categorias] = await db.execute(
+      'SELECT id FROM categorias WHERE id = ? AND (usuario_id IS NULL OR usuario_id = ?)',
+      [categoria_id, req.usuario.id]
+    );
+
+    if (!categorias.length) {
+      return res.status(400).json({ mensagem: 'Categoria invalida.' });
+    }
+
+    const [resultado] = await db.execute(
+      `UPDATE transacoes
+       SET categoria_id = ?, valor = ?, descricao = ?, data_transacao = ?
+       WHERE id = ? AND usuario_id = ?`,
+      [
+        categoria_id,
+        valor,
+        descricao == null ? null : descricao.trim(),
+        data_transacao,
+        id,
+        req.usuario.id
+      ]
+    );
+
+    if (resultado.affectedRows === 0) {
+      return res.status(404).json({ mensagem: 'Transacao nao encontrada.' });
+    }
+
+    return res.json({ mensagem: 'Transacao atualizada com sucesso!' });
+  } catch (erro) {
+    next(erro);
+  }
+});
+
+app.delete('/api/transacoes/:id', autenticarToken, async (req, res, next) => {
+  try {
+    const id = Number(req.params.id);
+
+    if (!Number.isSafeInteger(id) || id <= 0) {
+      return res.status(400).json({ mensagem: 'ID invalido.' });
+    }
+
+    const [resultado] = await db.execute(
+      'DELETE FROM transacoes WHERE id = ? AND usuario_id = ?',
+      [id, req.usuario.id]
+    );
+
+    if (resultado.affectedRows === 0) {
+      return res.status(404).json({
+        mensagem: 'Transacao nao encontrada.'
+      });
+    }
+
+    return res.json({
+      mensagem: 'Transacao excluida com sucesso!'
+    });
+  } catch (erro) {
+    next(erro);
+  }
+});
+
 app.use((erro, req, res, next) => {
   console.error('Erro na API:', erro.message);
   res.status(500).json({ mensagem: 'Erro interno do servidor.' });
