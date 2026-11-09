@@ -330,6 +330,174 @@ app.delete('/api/transacoes/:id', autenticarToken, async (req, res, next) => {
   }
 });
 
+app.get('/api/categorias', autenticarToken, async (req, res, next) => {
+  try {
+    const [categorias] = await db.execute(
+      `SELECT id, nome, tipo
+       FROM categorias
+       WHERE usuario_id IS NULL OR usuario_id = ?
+       ORDER BY tipo, nome`,
+      [req.usuario.id]
+    );
+
+    return res.json({
+      mensagem: 'Categorias consultadas com sucesso!',
+      categorias
+    });
+  } catch (erro) {
+    next(erro);
+  }
+});
+
+app.post('/api/categorias', autenticarToken, async (req, res, next) => {
+  try {
+    const { nome, tipo } = req.body || {};
+
+    // Valida os dados
+    if (
+      typeof nome !== 'string' ||
+      !nome.trim() ||
+      nome.trim().length > 100 ||
+      !['receita', 'despesa'].includes(tipo)
+    ) {
+      return res.status(400).json({
+        mensagem: 'Informe um nome valido e o tipo receita ou despesa.'
+      });
+    }
+
+    const nomeCategoria = nome.trim();
+
+    // Verifica se o usuario ja possui essa categoria
+    const [existentes] = await db.execute(
+      `SELECT id FROM categorias
+       WHERE usuario_id = ? AND nome = ? AND tipo = ?`,
+      [req.usuario.id, nomeCategoria, tipo]
+    );
+
+    if (existentes.length) {
+      return res.status(409).json({
+        mensagem: 'Voce ja possui uma categoria com esse nome e tipo.'
+      });
+    }
+
+    // Salva a categoria no MySQL
+    const [resultado] = await db.execute(
+      'INSERT INTO categorias (usuario_id, nome, tipo) VALUES (?, ?, ?)',
+      [req.usuario.id, nomeCategoria, tipo]
+    );
+
+    return res.status(201).json({
+      mensagem: 'Categoria cadastrada com sucesso!',
+      categoria: {
+        id: resultado.insertId,
+        nome: nomeCategoria,
+        tipo
+      }
+    });
+  } catch (erro) {
+    next(erro);
+  }
+});
+
+app.put('/api/categorias/:id', autenticarToken, async (req, res, next) => {
+  try {
+    const id = Number(req.params.id);
+    const { nome, tipo } = req.body || {};
+
+    if (!Number.isSafeInteger(id) || id <= 0) {
+      return res.status(400).json({ mensagem: 'ID invalido.' });
+    }
+
+    if (
+      typeof nome !== 'string' ||
+      !nome.trim() ||
+      nome.trim().length > 100 ||
+      !['receita', 'despesa'].includes(tipo)
+    ) {
+      return res.status(400).json({
+        mensagem: 'Informe um nome valido e o tipo receita ou despesa.'
+      });
+    }
+
+    // Confirma que a categoria pertence ao usuario
+    const [categorias] = await db.execute(
+      'SELECT id FROM categorias WHERE id = ? AND usuario_id = ?',
+      [id, req.usuario.id]
+    );
+
+    if (!categorias.length) {
+      return res.status(404).json({
+        mensagem: 'Categoria nao encontrada ou nao permitida.'
+      });
+    }
+
+    // Evita categorias pessoais duplicadas
+    const [existentes] = await db.execute(
+      `SELECT id FROM categorias
+       WHERE usuario_id = ? AND nome = ? AND tipo = ? AND id <> ?`,
+      [req.usuario.id, nome.trim(), tipo, id]
+    );
+
+    if (existentes.length) {
+      return res.status(409).json({
+        mensagem: 'Voce ja possui uma categoria com esse nome e tipo.'
+      });
+    }
+
+    await db.execute(
+      'UPDATE categorias SET nome = ?, tipo = ? WHERE id = ? AND usuario_id = ?',
+      [nome.trim(), tipo, id, req.usuario.id]
+    );
+
+    return res.json({
+      mensagem: 'Categoria atualizada com sucesso!'
+    });
+  } catch (erro) {
+    next(erro);
+  }
+});
+
+app.delete('/api/categorias/:id', autenticarToken, async (req, res, next) => {
+  try {
+    const id = Number(req.params.id);
+
+    if (!Number.isSafeInteger(id) || id <= 0) {
+      return res.status(400).json({
+        mensagem: 'ID invalido.'
+      });
+    }
+
+    // Exclui somente categorias pessoais do usuario
+    try {
+      const [resultado] = await db.execute(
+        'DELETE FROM categorias WHERE id = ? AND usuario_id = ?',
+        [id, req.usuario.id]
+      );
+
+      if (resultado.affectedRows === 0) {
+        return res.status(404).json({
+          mensagem: 'Categoria nao encontrada ou nao permitida.'
+        });
+      }
+
+      return res.json({
+        mensagem: 'Categoria excluida com sucesso!'
+      });
+    } catch (erro) {
+      // Impede excluir categorias utilizadas em transacoes
+      if (erro.code === 'ER_ROW_IS_REFERENCED_2') {
+        return res.status(409).json({
+          mensagem: 'Esta categoria possui transacoes vinculadas e nao pode ser excluida.'
+        });
+      }
+
+      throw erro;
+    }
+  } catch (erro) {
+    next(erro);
+  }
+});
+
 app.use((erro, req, res, next) => {
   console.error('Erro na API:', erro.message);
   res.status(500).json({ mensagem: 'Erro interno do servidor.' });
