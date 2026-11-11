@@ -13,7 +13,7 @@
   --in: #10b981;
   --out: #f43f5e;
 
-  --nav-h: 60px;
+  --nav-h: calc(69px + env(safe-area-inset-bottom, 0px)); /* 8 + 52 + 8 + borda, igual à barra global */
 
   position: relative;
   display: flex;
@@ -256,32 +256,21 @@
   text-align: center;
 }
 
+/* Barra de navegação: tamanho, espaçamento e fonte vêm das regras globais
+   de .config-nav / .nav-item (Configuracoes.css), iguais às outras abas.
+   Aqui só fica o posicionamento fixo e as cores desta tela. */
 .tela-transacoes .config-nav {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
   z-index: 10;
-  display: flex;
-  justify-content: space-around;
-  height: var(--nav-h);
-  padding: 6px 0 env(safe-area-inset-bottom, 0px);
   background: var(--card);
   border-top: 1px solid var(--border);
 }
 
 .tela-transacoes .nav-item {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  border: 0;
-  background: transparent;
   color: var(--muted);
-  font-size: 10.5px;
-  cursor: pointer;
 }
 
 .tela-transacoes .nav-item--ativo {
