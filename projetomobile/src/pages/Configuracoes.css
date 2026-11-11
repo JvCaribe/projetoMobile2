@@ -29,10 +29,6 @@
   --cor-sobre-principal: #ffffff;
   --cor-moldura: #dfe6f5;
 }
-
-/* ------------------------------------------------------------------ */
-/* Estrutura da tela (mobile 393 x 852)                                */
-/* ------------------------------------------------------------------ */
 .config-pagina {
   min-height: 100dvh;
   display: flex;
@@ -55,14 +51,6 @@
   background: var(--cor-fundo);
   color: var(--cor-texto);
   transition: background-color 0.25s ease, color 0.25s ease;
-}
-
-/* Em telas maiores, a tela mobile aparece como um "aparelho" centralizado */
-@media (min-width: 440px) and (min-height: 880px) {
-  .config-tela {
-    border-radius: 28px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
-  }
 }
 
 .config-conteudo {
