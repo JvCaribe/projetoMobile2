@@ -11,7 +11,8 @@ export type Categoria =
   | 'Assinaturas'
   | 'Lazer'
   | 'Outros'
-  | 'Freelance';
+  | 'Freelance'
+  | 'Salário';
 
 export type Transacao = {
   id: number;
@@ -32,12 +33,13 @@ export const CATEGORIAS: Record<Categoria, { sigla: string; cor: string }> = {
   Lazer: { sigla: 'LA', cor: '#E93D5B' },
   Outros: { sigla: 'OU', cor: '#94A3B8' },
   Freelance: { sigla: 'FR', cor: '#7C6CF2' },
+  Salário: { sigla: 'SA', cor: '#6366F1' }, // cor conforme o wireframe da página de receitas
 };
 
 /** Categorias disponíveis na tela "Nova transação", por tipo. */
 export const CATEGORIAS_POR_TIPO: Record<Tipo, Categoria[]> = {
   despesa: ['Moradia', 'Alimentação', 'Transporte', 'Saúde', 'Educação', 'Assinaturas', 'Lazer', 'Outros'],
-  receita: ['Freelance', 'Outros'],
+  receita: ['Salário', 'Freelance', 'Outros'],
 };
 
 /* ===== Dados de exemplo (trocar pela API depois) ===== */
@@ -49,7 +51,9 @@ let transacoes: Transacao[] = [
   { id: 5, descricao: 'Combustível e Uber', categoria: 'Transporte', valor: 210, tipo: 'despesa', data: '2026-09-15' },
   { id: 6, descricao: 'Serviços streaming', categoria: 'Assinaturas', valor: 89.9, tipo: 'despesa', data: '2026-09-12' },
   { id: 7, descricao: 'Projeto UI design', categoria: 'Freelance', valor: 650, tipo: 'receita', data: '2026-09-10' },
-  { id: 8, descricao: 'Aluguel', categoria: 'Moradia', valor: 1200, tipo: 'despesa', data: '2026-09-05' },
+  { id: 8, descricao: 'Aluguel outubro', categoria: 'Moradia', valor: 1200, tipo: 'despesa', data: '2026-09-05' },
+  { id: 9, descricao: 'Salário setembro', categoria: 'Salário', valor: 4800, tipo: 'receita', data: '2026-09-01' },
+  { id: 10, descricao: 'Mercado semanal', categoria: 'Alimentação', valor: 320.5, tipo: 'despesa', data: '2026-09-07' },
 ];
 
 /* ===== Store mínima (em memória) ===== */

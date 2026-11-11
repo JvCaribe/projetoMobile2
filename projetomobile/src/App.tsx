@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Transacoes from "./pages/Transacoes";
 import DetalhesTransacoes from './pages/DetalhesTransacoes';
 import NovaTransacao from './pages/NovaTransacao';
+import TransacoesPorTipo from './pages/TransacoesPorTipo';
 
 
 
@@ -56,6 +57,8 @@ const App: React.FC = () => (
         <Route path="/transacoes/:id" element={<DetalhesTransacoes />} />
       <Route path="/configuracoes" element={<Configuracoes />} />
       <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/receitas" element={<TransacoesPorTipo tipo="receita" />} />
+        <Route path="/despesas" element={<TransacoesPorTipo tipo="despesa" />} />
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>

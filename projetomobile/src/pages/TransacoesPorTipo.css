@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Nunito+Sans:wght@400;600;700&display=swap');
+
+/* Tokens: modo escuro por padrão; o claro vem logo abaixo (guia de UI/UX) */
+.tipo-content {
+  --background: var(--cor-fundo, #090e1c);
+  font-family: 'Nunito Sans', system-ui, sans-serif;
+}
+
+.tipo {
+  --card: #111827;
+  --border: #1f2937;
+  --text: #f8fafc;
+  --muted: #64748b;
+  --back-bg: #1c2638;
+  --in: #10b981;
+  --out: #f43f5e;
+
+  min-height: 100%;
+  padding: 48px 20px 28px;
+  color: var(--text);
+  font-family: 'Nunito Sans', system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+:root[data-tema='claro'] .tipo {
+  --card: #ffffff;
+  --border: #dfe5f1;
+  --text: #0f1b2d;
+  --muted: #5b6b82;
+  --back-bg: #eef2fb;
+  --in: #059669; /* barra de receitas */
+  --out: #e11d48; /* barra de despesas */
+}
+
+.tipo--receita {
+  --destaque: var(--in);
+}
+
+.tipo--despesa {
+  --destaque: var(--out);
+}
+
+.tipo *,
+.tipo *::before,
+.tipo *::after {
+  box-sizing: border-box;
+}
+
+.tipo h1,
+.tipo p,
+.tipo ul {
+  margin: 0;
+  padding: 0;
+}
+
+.tipo ul {
+  list-style: none;
+}
+
+.tipo button:focus-visible {
+  outline: 2px solid var(--destaque);
+  outline-offset: 2px;
+}
+
+/* Cabeçalho */
+.tipo__cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tipo__titulo {
+  font-size: 21px;
+  font-weight: 400;
+}
+
+.tipo__voltar {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  background: var(--back-bg);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.tipo__voltar svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Resumo */
+.tipo__resumo {
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background: var(--card);
+}
+
+.tipo__resumo-rotulo {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+}
+
+.tipo__resumo-valor {
+  margin-top: 6px;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--destaque);
+}
+
+.tipo__resumo-qtd {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Lista */
+.tipo__lista {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tipo__item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--card);
+}
+
+.tipo__tile {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.tipo__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.tipo__nome {
+  font-size: 15px;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tipo__meta {
+  margin-top: 2px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.tipo__valor {
+  flex-shrink: 0;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--destaque);
+}
+
+.tipo__vazio {
+  padding: 24px 0;
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Texto só para leitores de tela */
+.tipo__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

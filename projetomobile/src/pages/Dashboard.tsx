@@ -2,6 +2,7 @@ import { IonContent,IonFooter, IonIcon, IonPage } from '@ionic/react';
 import BarraNavegacao from '../components/BarraNavegacao';
 import { arrowDownOutline, arrowUpOutline, eyeOffOutline, eyeOutline } from 'ionicons/icons';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Dashboard.css';
 
 /* ===== Dados de exemplo (trocar pela API depois) ===== */
@@ -31,6 +32,7 @@ const moeda = (v: number) => brl.format(v);
 const movimento = (v: number) => `${v < 0 ? '-' : '+'}${brl.format(Math.abs(v))}`;
 
 const Dashboard: React.FC = () => {
+  const navigate = useNavigate();
   const [mostrarSaldo, setMostrarSaldo] = useState(true);
 
   const despesas = CATEGORIAS.reduce((soma, c) => soma + c.valor, 0);
@@ -108,7 +110,7 @@ const Dashboard: React.FC = () => {
               <button
                 type="button"
                 className="dash__action dash__action--in"
-                onClick={() => console.log('TODO: abrir receitas')}
+                onClick={() => navigate('/receitas')}
               >
                 <IonIcon icon={arrowUpOutline} />
                 Ver Receitas
@@ -116,7 +118,7 @@ const Dashboard: React.FC = () => {
               <button
                 type="button"
                 className="dash__action dash__action--out"
-                onClick={() => console.log('TODO: abrir despesas')}
+                onClick={() => navigate('/despesas')}
               >
                 <IonIcon icon={arrowDownOutline} />
                 Ver Despesas
