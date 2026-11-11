@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Nunito+Sans:wght@400;600;700&display=swap');
+
+.tela-detalhe {
+  --card: #111827;
+  --bg: #090e1c;
+  --border: #1f2937;
+  --track: #1e293b;
+  --accent: #00a585;
+  --accent-2: #19a48a;
+  --on-accent: #04211b;
+  --text: #f8fafc;
+  --muted: #64748b;
+  --in: #10b981;
+  --out: #f43f5e;
+  --out-bg: #2d1d2d;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(393px, 100vw);
+  height: min(852px, 100dvh);
+  margin: 0 auto;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Nunito Sans', system-ui, sans-serif;
+}
+
+/* Modo claro */
+:root[data-theme="light"] .tela-detalhe,
+[data-theme="light"] .tela-detalhe {
+  --card: #ffffff;
+  --bg: #f4f7ff;
+  --border: #dfe5f1;
+  --track: #e6ebf5;
+  --accent: #008f74;
+  --accent-2: #199a82;
+  --on-accent: #ffffff;
+  --text: #111827;
+  --muted: #5b6578;
+  --in: #059669;
+  --out: #e11d48;
+  --out-bg: #fee8eb;
+}
+
+.tela-detalhe *,
+.tela-detalhe *::before,
+.tela-detalhe *::after {
+  box-sizing: border-box;
+}
+
+.tela-detalhe :where(h1, h2, p, dl, dd) {
+  margin: 0;
+  padding: 0;
+}
+
+.tela-detalhe button {
+  font-family: inherit;
+}
+
+.tela-detalhe button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.detalhe {
+  flex: 1;
+  overflow-y: auto;
+  padding: 39px 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Cabeçalho */
+.detalhe__cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-bottom: 4px;
+}
+
+.detalhe__titulo {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.botao-voltar {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 10px;
+  background: var(--track);
+  color: var(--text);
+  cursor: pointer;
+  transition: filter 0.15s ease, transform 0.15s ease;
+}
+
+.botao-voltar svg {
+  width: 16px;
+  height: 16px;
+}
+
+.botao-voltar:hover {
+  filter: brightness(1.15);
+}
+
+.botao-voltar:active {
+  transform: scale(0.96);
+}
+
+/* Card principal */
+.detalhe-card {
+  padding: 18px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+
+.detalhe-card__topo {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.detalhe-card__icone {
+  flex: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+}
+
+.detalhe-card__texto {
+  flex: 1;
+  min-width: 0;
+}
+
+.detalhe-card__nome {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.detalhe-card__categoria {
+  margin-top: 2px;
+  font-size: 11px;
+  line-height: 14px;
+  color: var(--muted);
+}
+
+.detalhe-card__valor {
+  margin-top: 14px;
+  padding-bottom: 14px;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 32px;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--border);
+}
+
+.detalhe-card__valor--receita {
+  color: var(--in);
+}
+
+.detalhe-card__valor--despesa {
+  color: var(--out);
+}
+
+.detalhe-card__lista {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding-top: 15px;
+}
+
+.detalhe-card__linha {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+.detalhe-card__linha dt {
+  color: var(--muted);
+}
+
+.detalhe-card__linha dd {
+  text-align: right;
+}
+
+/* Botões de ação */
+.botao-acao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 43px;
+  border: 0;
+  border-radius: 16px;
+  font-size: 12.5px;
+  cursor: pointer;
+  transition: filter 0.15s ease, transform 0.15s ease;
+}
+
+.botao-acao svg {
+  width: 14px;
+  height: 14px;
+}
+
+.botao-acao:hover {
+  filter: brightness(1.12);
+}
+
+.botao-acao:active {
+  transform: scale(0.98);
+}
+
+.botao-acao--editar {
+  background: var(--track);
+  color: var(--text);
+}
+
+.botao-acao--excluir {
+  background: var(--out-bg);
+  color: var(--out);
+}

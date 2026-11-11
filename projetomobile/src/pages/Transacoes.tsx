@@ -213,4 +213,7 @@ const Transacoes: React.FC = () => {
   );
 };
 
+export { CATEGORIAS, TRANSACOES };
+export type { Transacao };
+
 export default Transacoes;

@@ -7,6 +7,7 @@ import Configuracoes from "./pages/Configuracoes";
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Transacoes from "./pages/Transacoes";
+import DetalhesTransacoes from './pages/DetalhesTransacoes';
 
 
 
@@ -50,6 +51,7 @@ const App: React.FC = () => (
         <Route path="/cadastro" element={<Cadastro />} />
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/transacoes" element={<Transacoes />} /> 
+        <Route path="/transacoes/:id" element={<DetalhesTransacoes />} />
       <Route path="/configuracoes" element={<Configuracoes />} />
       <Route path="/dashboard" element={<Dashboard />} />
       </IonRouterOutlet>
