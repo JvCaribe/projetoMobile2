@@ -1,5 +1,5 @@
 import { IonPage } from '@ionic/react';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 
 import { CATEGORIAS, TRANSACOES } from './Transacoes';
@@ -22,6 +22,19 @@ const DetalhesTransacoes: React.FC = () => {
   const { id } = useParams();
 
   const transacao = TRANSACOES.find((t) => t.id === Number(id));
+
+  const [confirmando, setConfirmando] = useState(false);
+const botaoNao = useRef<HTMLButtonElement>(null);
+
+useEffect(() => {
+  if (!confirmando) return;
+  botaoNao.current?.focus();
+  const aoTeclar = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') setConfirmando(false);
+  };
+  window.addEventListener('keydown', aoTeclar);
+  return () => window.removeEventListener('keydown', aoTeclar);
+}, [confirmando]);
 
   /* Id inexistente: volta para a lista */
   if (!transacao) return <Navigate to="/transacoes" replace />;
@@ -112,8 +125,8 @@ const DetalhesTransacoes: React.FC = () => {
 
           <button
             type="button"
-            className="botao-acao botao-acao--excluir"
-            onClick={excluir}
+           className="botao-acao botao-acao--excluir"
+            onClick={() => setConfirmando(true)}
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M4 7h16" />
@@ -123,6 +136,52 @@ const DetalhesTransacoes: React.FC = () => {
             Excluir Transação
           </button>
         </main>
+
+        {confirmando && (
+          <div className="confirmar" onClick={() => setConfirmando(false)}>
+            <div
+              className="confirmar__folha"
+              role="alertdialog"
+              aria-modal="true"
+              aria-labelledby="confirmar-titulo"
+              aria-describedby="confirmar-texto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <span className="confirmar__icone" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M10.3 4.2 2.9 17.1A2 2 0 0 0 4.6 20h14.8a2 2 0 0 0 1.7-2.9L13.7 4.2a2 2 0 0 0-3.4 0z" />
+                  <path d="M12 9.5v4" />
+                  <path d="M12 16.8h.01" />
+                </svg>
+              </span>
+
+              <h2 id="confirmar-titulo" className="confirmar__titulo">
+                Confirmar exclusão?
+              </h2>
+              <p id="confirmar-texto" className="confirmar__texto">
+                Esta ação não pode ser desfeita.
+              </p>
+
+              <div className="confirmar__acoes">
+                <button
+                  ref={botaoNao}
+                  type="button"
+                  className="confirmar__botao confirmar__botao--nao"
+                  onClick={() => setConfirmando(false)}
+                >
+                  Não
+                </button>
+                <button
+                  type="button"
+                  className="confirmar__botao confirmar__botao--sim"
+                  onClick={excluir}
+                >
+                  Sim, excluir
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </IonPage>
   );
