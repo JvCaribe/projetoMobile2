@@ -1,0 +1,297 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Nunito+Sans:wght@400;600;700&display=swap');
+
+/* Medidas calibradas para 393 x 852 (mesmas do Dashboard) */
+
+/* ===== Tokens: modo escuro por padrão, igual ao Dashboard ===== */
+.tela-transacoes {
+  --card: #111827;
+  --bg: #090e1c;
+  --border: #1f2937;
+  --track: #1e293b;
+  --accent: #00a585;
+  --accent-2: #19a48a;
+  --on-accent: #04211b;
+  --text: #f8fafc;
+  --muted: #64748b;
+  --in: #10b981;
+  --out: #f43f5e;
+
+  --nav-h: 60px;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(393px, 100vw);
+  height: min(852px, 100dvh);
+  margin: 0 auto;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Nunito Sans', system-ui, sans-serif;
+}
+
+/* Modo claro: data-theme="light" no <html> */
+:root[data-theme="light"] .tela-transacoes,
+[data-theme="light"] .tela-transacoes {
+  --card: #ffffff;
+  --bg: #f4f7ff;
+  --border: #dfe5f1;
+  --track: #e6ebf5;
+  --accent: #008f74;
+  --accent-2: #199a82;
+  --on-accent: #ffffff;
+  --text: #111827;
+  --muted: #5b6578;
+  --in: #059669;
+  --out: #e11d48;
+}
+
+.tela-transacoes *,
+.tela-transacoes *::before,
+.tela-transacoes *::after {
+  box-sizing: border-box;
+}
+
+.tela-transacoes h1,
+.tela-transacoes h2,
+.tela-transacoes p,
+.tela-transacoes ul {
+  margin: 0;
+  padding: 0;
+}
+
+.tela-transacoes ul {
+  list-style: none;
+}
+
+.tela-transacoes button,
+.tela-transacoes input {
+  font-family: inherit;
+}
+
+.tela-transacoes button:focus-visible,
+.tela-transacoes input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Só o conteúdo rola; a barra de navegação fica fixa embaixo */
+.transacoes {
+  flex: 1;
+  overflow-y: auto;
+  padding: 43px 24px calc(var(--nav-h) + 28px);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* ===== Cabeçalho ===== */
+.transacoes__cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 2px;
+}
+
+.transacoes__titulo {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.botao-adicionar {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 12px;
+  background: var(--accent);
+  color: var(--on-accent);
+  cursor: pointer;
+  transition: filter 0.15s ease, transform 0.15s ease;
+}
+
+.botao-adicionar svg {
+  width: 20px;
+  height: 20px;
+}
+
+.botao-adicionar:hover {
+  filter: brightness(1.08);
+}
+
+.botao-adicionar:active {
+  transform: scale(0.96);
+}
+
+/* ===== Busca e filtros ===== */
+.campo-busca {
+  width: 100%;
+  height: 44px;
+  padding: 0 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  color: var(--text);
+  font-size: 12.5px;
+}
+
+.campo-busca::placeholder {
+  color: var(--muted);
+}
+
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filtro {
+  height: 30px;
+  padding: 0 14px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 11.5px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.filtro--ativo {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+  font-weight: 600;
+}
+
+/* ===== Lista agrupada por mês ===== */
+.mes__titulo {
+  margin-bottom: 12px;
+  font-size: 10.5px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  line-height: 14px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.mes + .mes {
+  margin-top: 8px;
+}
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Card igual ao .dash__tx do Dashboard */
+.card-transacao {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  height: 59px;
+  padding: 0 14px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.card-transacao:hover {
+  border-color: var(--accent-2);
+}
+
+.card-transacao__icone {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-size: 9.5px;
+}
+
+.card-transacao__texto {
+  flex: 1;
+  min-width: 0;
+  display: block;
+}
+
+.card-transacao__nome {
+  display: block;
+  font-size: 12.5px;
+  line-height: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-transacao__meta {
+  display: block;
+  margin-top: 3px;
+  font-size: 11px;
+  line-height: 14px;
+  color: var(--muted);
+}
+
+.card-transacao__valor {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.card-transacao__valor--receita {
+  color: var(--in);
+}
+
+.card-transacao__valor--despesa {
+  color: var(--out);
+}
+
+.transacoes__vazio {
+  margin: 32px 0;
+  font-size: 12.5px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.tela-transacoes .config-nav {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-around;
+  height: var(--nav-h);
+  padding: 6px 0 env(safe-area-inset-bottom, 0px);
+  background: var(--card);
+  border-top: 1px solid var(--border);
+}
+
+.tela-transacoes .nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 10.5px;
+  cursor: pointer;
+}
+
+.tela-transacoes .nav-item--ativo {
+  color: var(--accent);
+}
