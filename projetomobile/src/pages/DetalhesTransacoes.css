@@ -27,8 +27,7 @@
 }
 
 /* Modo claro */
-:root[data-theme="light"] .tela-detalhe,
-[data-theme="light"] .tela-detalhe {
+:root[data-tema="claro"] .tela-detalhe {
   --card: #ffffff;
   --bg: #f4f7ff;
   --border: #dfe5f1;
@@ -242,8 +241,7 @@
 /* Confirmação de exclusão */
 .tela-detalhe { --scrim: rgba(2, 6, 15, 0.6); }
 
-:root[data-theme="light"] .tela-detalhe,
-[data-theme="light"] .tela-detalhe { --scrim: rgba(15, 23, 42, 0.45); }
+:root[data-tema="claro"] .tela-detalhe { --scrim: rgba(15, 23, 42, 0.45); }
 
 .confirmar {
   position: absolute; inset: 0; z-index: 20;

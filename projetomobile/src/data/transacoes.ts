@@ -11,8 +11,7 @@ export type Categoria =
   | 'Assinaturas'
   | 'Lazer'
   | 'Outros'
-  | 'Freelance'
-  | 'Salário';
+  | 'Freelance';
 
 export type Transacao = {
   id: number;
@@ -33,13 +32,12 @@ export const CATEGORIAS: Record<Categoria, { sigla: string; cor: string }> = {
   Lazer: { sigla: 'LA', cor: '#E93D5B' },
   Outros: { sigla: 'OU', cor: '#94A3B8' },
   Freelance: { sigla: 'FR', cor: '#7C6CF2' },
-  Salário: { sigla: 'SL', cor: '#10B981' },
 };
 
 /** Categorias disponíveis na tela "Nova transação", por tipo. */
 export const CATEGORIAS_POR_TIPO: Record<Tipo, Categoria[]> = {
   despesa: ['Moradia', 'Alimentação', 'Transporte', 'Saúde', 'Educação', 'Assinaturas', 'Lazer', 'Outros'],
-  receita: ['Salário', 'Freelance', 'Outros'],
+  receita: ['Freelance', 'Outros'],
 };
 
 /* ===== Dados de exemplo (trocar pela API depois) ===== */

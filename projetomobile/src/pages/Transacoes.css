@@ -28,8 +28,7 @@
 }
 
 /* Modo claro: */
-:root[data-theme="light"] .tela-transacoes,
-[data-theme="light"] .tela-transacoes {
+:root[data-tema="claro"] .tela-transacoes {
   --card: #ffffff;
   --bg: #f4f7ff;
   --border: #dfe5f1;

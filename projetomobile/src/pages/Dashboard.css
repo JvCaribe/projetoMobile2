@@ -3,7 +3,7 @@
 /* Medidas calibradas para 393 x 852 */
 
 .dash-content {
-  --background: #090e1c;
+  --background: var(--cor-fundo, #090e1c);
   font-family: 'Nunito Sans', system-ui, sans-serif;
 }
 
@@ -403,4 +403,20 @@
 
 .dash__tx-value--out {
   color: var(--out);
+}
+
+/* Modo claro: paleta geral e cores de receitas e despesas (guia de UI/UX) */
+:root[data-tema='claro'] .dash {
+  --card: #ffffff;
+  --border: #dfe5f1;
+  --track: #e6ebf5;
+  --accent: #008f74;
+  --accent-2: #199a82;
+  --on-accent: #ffffff;
+  --text: #0f1b2d;
+  --muted: #5b6b82;
+  --in: #059669; /* barra de receitas */
+  --in-bg: #e2f6f0; /* botão "Ver Receitas" */
+  --out: #e11d48; /* barra de despesas */
+  --out-bg: #fee8eb; /* botão "Ver Despesas" */
 }

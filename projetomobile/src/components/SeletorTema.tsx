@@ -1,8 +1,8 @@
 import React from "react";
 
-import { IconeSol, IconeLua } from "./Icones";
+import type { Tema } from "../theme/tema";
 
-export type Tema = "claro" | "escuro";
+import { IconeSol, IconeLua } from "./Icones";
 
 type SeletorTemaProps = {
   tema: Tema;

@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap');
 
 .cadastro-content {
-  --background: #090e1c;
+  --background: var(--cor-fundo, #090e1c);
   font-family: 'Nunito Sans', system-ui, sans-serif;
 }
 
@@ -15,11 +15,28 @@
   --placeholder: #8b95a7;
   --danger: #f43f5e;
   --back-bg: #1c2536;
+  --danger-bg: #2d1d2d;
+  --on-accent: #04211b;
 
   min-height: 100%;
   padding: 38px 27px 28px;
   color: var(--text);
   font-family: 'Nunito Sans', system-ui, sans-serif;
+}
+
+/* Modo claro (mesma paleta de Configuracoes.css) */
+:root[data-tema='claro'] .cadastro {
+  --surface: #ffffff;
+  --border: #dfe5f1;
+  --accent: #008f74;
+  --accent-dark: #199a82;
+  --text: #0f1b2d;
+  --muted: #5b6b82;
+  --placeholder: #8a96ab;
+  --danger: #e11d48;
+  --danger-bg: #fee8eb;
+  --back-bg: #eef2fb;
+  --on-accent: #ffffff;
 }
 
 /* Cabeçalho */
@@ -97,7 +114,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 12px;
-  background: #2d1d2d;
+  background: var(--danger-bg);
   color: var(--danger);
   font-size: 11.5px;
 }
@@ -107,7 +124,7 @@
   --background: var(--accent);
   --background-activated: var(--accent-dark);
   --background-hover: var(--accent-dark);
-  --color: #04211b;
+  --color: var(--on-accent);
   --border-radius: 16px;
   --box-shadow: none;
 

@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap');
 
 .login-content {
-  --background: #090e1c;
+  --background: var(--cor-fundo, #090e1c);
   font-family: 'Nunito Sans', system-ui, sans-serif;
 }
 
@@ -13,6 +13,7 @@
   --accent-dark: #19a48a;
   --text: #f8fafc;
   --muted: #64748b;
+  --on-accent: #04211b;
 
   min-height: 100%;
   padding: 54px 27px 28px;
@@ -20,6 +21,18 @@
   font-family: 'Nunito Sans', system-ui, sans-serif;
   display: flex;
   flex-direction: column;
+}
+
+/* Modo claro (mesma paleta de Configuracoes.css) */
+:root[data-tema='claro'] .login {
+  --bg: #f4f7ff;
+  --surface: #ffffff;
+  --border: #dfe5f1;
+  --accent: #008f74;
+  --accent-dark: #199a82;
+  --text: #0f1b2d;
+  --muted: #5b6b82;
+  --on-accent: #ffffff;
 }
 
 /* Marca */
@@ -34,7 +47,7 @@
   height: 32px;
   border-radius: 10px;
   background: var(--accent);
-  color: #04211b;
+  color: var(--on-accent);
   display: grid;
   place-items: center;
 }
@@ -155,7 +168,7 @@
   --background: var(--accent);
   --background-activated: var(--accent-dark);
   --background-hover: var(--accent-dark);
-  --color: #04211b;
+  --color: var(--on-accent);
   --border-radius: 20px;
   --box-shadow: none;
 

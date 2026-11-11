@@ -19,6 +19,12 @@
   gap: 18px;
 }
 
+/* Modo claro: cores de receitas e despesas (guia de UI/UX) */
+:root[data-tema='claro'] .nova {
+  --in: #059669;
+  --out: #e11d48;
+}
+
 .nova *,
 .nova *::before,
 .nova *::after {

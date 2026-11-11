@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 
-import BarraNavegacao from "../components/Barranavegacao";
-import CardPerfil from "../components/Cardperfil";
-import CardSobre from "../components/Cardsobre";
-import SeletorTema from "../components/Seletortema";
-import type { Tema } from "../components/Seletortema";
+import BarraNavegacao from "../components/BarraNavegacao";
+import CardPerfil from "../components/CardPerfil";
+import CardSobre from "../components/CardSobre";
+import SeletorTema from "../components/SeletorTema";
+import { aplicarTema, lerTemaSalvo } from "../theme/tema";
+import type { Tema } from "../theme/tema";
 
 import "./Configuracoes.css";
-
-const CHAVE_TEMA = "finanza-tema";
 
 const USUARIO = {
   nome: "Ana Souza",
@@ -20,25 +19,6 @@ const INFO_APP = [
   { rotulo: "Desenvolvido por", valor: "Projeto Faculdade" },
   { rotulo: "Ano", valor: "2026" },
 ];
-
-function lerTemaSalvo(): Tema {
-  try {
-    const salvo = localStorage.getItem(CHAVE_TEMA);
-    if (salvo === "claro" || salvo === "escuro") return salvo;
-  } catch {
-    /* localStorage indisponível: usa o padrão */
-  }
-  return "escuro";
-}
-
-function aplicarTema(tema: Tema): void {
-  document.documentElement.setAttribute("data-tema", tema);
-  try {
-    localStorage.setItem(CHAVE_TEMA, tema);
-  } catch {
-    /* ignora */
-  }
-}
 
 const Configuracoes: React.FC = () => {
   const [tema, setTema] = useState<Tema>(lerTemaSalvo);
