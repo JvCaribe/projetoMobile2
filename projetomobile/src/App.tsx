@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Transacoes from "./pages/Transacoes";
 import DetalhesTransacoes from './pages/DetalhesTransacoes';
+import NovaTransacao from './pages/NovaTransacao';
 
 
 
@@ -51,6 +52,7 @@ const App: React.FC = () => (
         <Route path="/cadastro" element={<Cadastro />} />
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/transacoes" element={<Transacoes />} /> 
+        <Route path="/transacoes/nova" element={<NovaTransacao />} />
         <Route path="/transacoes/:id" element={<DetalhesTransacoes />} />
       <Route path="/configuracoes" element={<Configuracoes />} />
       <Route path="/dashboard" element={<Dashboard />} />

@@ -2,53 +2,11 @@ import React, { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import BarraNavegacao from "../components/BarraNavegacao";
+import { CATEGORIAS, useTransacoes } from "../data/transacoes";
+import type { Tipo, Transacao } from "../data/transacoes";
 import "./Transacoes.css";
 
-type Tipo = "receita" | "despesa";
 type Filtro = "todas" | "receitas" | "despesas";
-
-type Categoria =
-  | "Moradia"
-  | "Alimentação"
-  | "Transporte"
-  | "Saúde"
-  | "Educação"
-  | "Assinaturas"
-  | "Lazer"
-  | "Outros"
-  | "Freelance";
-
-type Transacao = {
-  id: number;
-  descricao: string;
-  categoria: Categoria;
-  valor: number;
-  tipo: Tipo;
-  data: string; // AAAA-MM-DD
-};
-
-const CATEGORIAS: Record<Categoria, { sigla: string; cor: string }> = {
-  Moradia: { sigla: "MO", cor: "#E74797" },
-  Alimentação: { sigla: "AL", cor: "#D76619" },
-  Transporte: { sigla: "TR", cor: "#5F6E85" },
-  Saúde: { sigla: "SA", cor: "#14A99A" },
-  Educação: { sigla: "ED", cor: "#6366F1" },
-  Assinaturas: { sigla: "AS", cor: "#A554F2" },
-  Lazer: { sigla: "LA", cor: "#E93D5B" },
-  Outros: { sigla: "OU", cor: "#94A3B8" },
-  Freelance: { sigla: "FR", cor: "#7C6CF2" },
-};
-
-const TRANSACOES: Transacao[] = [
-  { id: 1, descricao: "Cinema com amigos", categoria: "Lazer", valor: 78, tipo: "despesa", data: "2026-09-21" },
-  { id: 2, descricao: "Consulta médica", categoria: "Saúde", valor: 155.8, tipo: "despesa", data: "2026-09-20" },
-  { id: 3, descricao: "Venda notebook antigo", categoria: "Outros", valor: 200, tipo: "receita", data: "2026-09-19" },
-  { id: 4, descricao: "Mensalidade faculdade", categoria: "Educação", valor: 540, tipo: "despesa", data: "2026-09-18" },
-  { id: 5, descricao: "Combustível e Uber", categoria: "Transporte", valor: 210, tipo: "despesa", data: "2026-09-15" },
-  { id: 6, descricao: "Serviços streaming", categoria: "Assinaturas", valor: 89.9, tipo: "despesa", data: "2026-09-12" },
-  { id: 7, descricao: "Projeto UI design", categoria: "Freelance", valor: 650, tipo: "receita", data: "2026-09-10" },
-  { id: 8, descricao: "Aluguel", categoria: "Moradia", valor: 1200, tipo: "despesa", data: "2026-09-05" },
-];
 
 const formatarValor = (valor: number, tipo: Tipo): string => {
   const numero = valor.toLocaleString("pt-BR", {
@@ -83,11 +41,12 @@ const Transacoes: React.FC = () => {
   const navigate = useNavigate();
   const [busca, setBusca] = useState("");
   const [filtro, setFiltro] = useState<Filtro>("todas");
+  const transacoes = useTransacoes();
 
   const grupos = useMemo(() => {
     const termo = normalizar(busca.trim());
 
-    const filtradas = TRANSACOES.filter((t) => {
+    const filtradas = transacoes.filter((t) => {
       if (filtro === "receitas" && t.tipo !== "receita") return false;
       if (filtro === "despesas" && t.tipo !== "despesa") return false;
       if (!termo) return true;
@@ -104,7 +63,7 @@ const Transacoes: React.FC = () => {
     });
 
     return Array.from(porMes.values());
-  }, [busca, filtro]);
+  }, [busca, filtro, transacoes]);
 
   return (
     <div className="tela-transacoes">
@@ -212,8 +171,5 @@ const Transacoes: React.FC = () => {
     </div>
   );
 };
-
-export { CATEGORIAS, TRANSACOES };
-export type { Transacao };
 
 export default Transacoes;

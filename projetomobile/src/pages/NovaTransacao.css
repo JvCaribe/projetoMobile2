@@ -1,0 +1,268 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Nunito+Sans:wght@400;600;700&display=swap');
+
+/* Usa os tokens --cor-* (tema claro/escuro) definidos em Configuracoes.css */
+.nova-content {
+  --background: var(--cor-fundo, #090e1c);
+  font-family: 'Nunito Sans', system-ui, sans-serif;
+}
+
+.nova {
+  --in: #10b981;
+  --out: #f43f5e;
+
+  min-height: 100%;
+  padding: 43px 24px 28px;
+  color: var(--cor-texto, #f1f5f9);
+  font-family: 'Nunito Sans', system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.nova *,
+.nova *::before,
+.nova *::after {
+  box-sizing: border-box;
+}
+
+.nova h1,
+.nova p {
+  margin: 0;
+  padding: 0;
+}
+
+.nova button,
+.nova input {
+  font-family: inherit;
+}
+
+.nova button:focus-visible,
+.nova input:focus-visible {
+  outline: 2px solid var(--cor-principal, #00a585);
+  outline-offset: 2px;
+}
+
+/* Cabeçalho */
+.nova__cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.nova__titulo {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.nova__voltar {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--cor-borda, rgba(148, 163, 184, 0.14));
+  border-radius: 10px;
+  background: var(--cor-bloco, #111827);
+  color: var(--cor-texto, #f1f5f9);
+  cursor: pointer;
+}
+
+.nova__voltar svg {
+  width: 18px;
+  height: 18px;
+}
+
+.nova__form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Rótulos */
+.nova__rotulo {
+  display: block;
+  margin-top: 10px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--cor-texto-suave, #8493ad);
+}
+
+.nova__rotulo--centro {
+  margin-top: 0;
+  text-align: center;
+}
+
+/* Despesa / Receita */
+.nova__tipos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  padding: 4px;
+  margin-bottom: 10px;
+  border: 1px solid var(--cor-borda, rgba(148, 163, 184, 0.14));
+  border-radius: 14px;
+  background: var(--cor-bloco, #111827);
+}
+
+.nova__tipo {
+  height: 38px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--cor-texto-suave, #8493ad);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.nova__tipo--ativo {
+  color: #fff;
+}
+
+.nova__tipo--despesa.nova__tipo--ativo {
+  background: var(--out);
+}
+
+.nova__tipo--receita.nova__tipo--ativo {
+  background: var(--in);
+}
+
+/* Valor */
+.nova__valor {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 22px 20px 26px;
+  margin-bottom: 8px;
+  border: 1px solid var(--cor-borda, rgba(148, 163, 184, 0.14));
+  border-radius: 22px;
+  background: var(--cor-bloco, #111827);
+}
+
+.nova__valor--despesa {
+  --destaque: var(--out);
+}
+
+.nova__valor--receita {
+  --destaque: var(--in);
+}
+
+.nova__valor-linha {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.nova__moeda {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--cor-texto-suave, #8493ad);
+}
+
+.nova__valor-input {
+  width: 9ch;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--destaque);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 36px;
+  font-weight: 700;
+  caret-color: var(--destaque);
+}
+
+.nova__valor-input--vazio {
+  opacity: 0.45;
+}
+
+/* Categorias */
+.nova__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.nova__chip {
+  height: 28px;
+  padding: 0 12px;
+  border: 1px solid var(--cor-borda, rgba(148, 163, 184, 0.14));
+  border-radius: 999px;
+  background: var(--cor-bloco, #111827);
+  color: var(--cor-texto-suave, #8493ad);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.nova__chip--ativo {
+  border-color: var(--c);
+  background: var(--c);
+  color: #fff;
+}
+
+/* Campos de texto e data */
+.nova__input {
+  width: 100%;
+  height: 46px;
+  padding: 0 16px;
+  border: 1px solid var(--cor-borda, rgba(148, 163, 184, 0.14));
+  border-radius: 14px;
+  background: var(--cor-bloco, #111827);
+  color: var(--cor-texto, #f1f5f9);
+  font-size: 14px;
+}
+
+.nova__input::placeholder {
+  color: var(--cor-texto-suave, #8493ad);
+  opacity: 0.8;
+}
+
+.nova__input--data {
+  appearance: none;
+  -webkit-appearance: none;
+  min-width: 0;
+}
+
+.nova__input--data::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: invert(0.6);
+}
+
+:root[data-tema='claro'] .nova__input--data::-webkit-calendar-picker-indicator {
+  filter: none;
+  opacity: 0.6;
+}
+
+/* Salvar */
+.nova__salvar {
+  width: 100%;
+  height: 48px;
+  margin-top: 14px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--cor-principal, #00a585);
+  color: var(--cor-sobre-principal, #04110e);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.nova__salvar:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nova__tipo,
+  .nova__chip,
+  .nova__salvar {
+    transition: none;
+  }
+}

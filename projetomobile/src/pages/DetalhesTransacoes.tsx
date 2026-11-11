@@ -2,7 +2,7 @@ import { IonPage } from '@ionic/react';
 import React, { useEffect, useRef, useState } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 
-import { CATEGORIAS, TRANSACOES } from './Transacoes';
+import { CATEGORIAS, useTransacoes } from '../data/transacoes';
 import './DetalhesTransacoes.css';
 
 const formatarValor = (valor: number): string =>
@@ -21,7 +21,8 @@ const DetalhesTransacoes: React.FC = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const transacao = TRANSACOES.find((t) => t.id === Number(id));
+  const transacoes = useTransacoes();
+  const transacao = transacoes.find((t) => t.id === Number(id));
 
   const [confirmando, setConfirmando] = useState(false);
 const botaoNao = useRef<HTMLButtonElement>(null);
