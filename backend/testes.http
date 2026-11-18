@@ -1,0 +1,68 @@
+# Arquivo para testar a API direto no VS Code.
+# Instale a extensao "REST Client" e clique em "Send Request" acima de cada bloco.
+# (Tambem da para copiar os exemplos para o Postman ou Insomnia.)
+
+@url = http://localhost:3000
+# Depois de fazer o login, cole aqui o token recebido:
+@token = COLE_O_TOKEN_AQUI
+
+### Testa se a API esta no ar
+GET {{url}}/
+
+### Cadastro
+POST {{url}}/api/auth/cadastro
+Content-Type: application/json
+
+{ "nome": "Ana Souza", "email": "ana@email.com", "senha": "12345678" }
+
+### Login (copie o "token" da resposta para a variavel @token acima)
+POST {{url}}/api/auth/login
+Content-Type: application/json
+
+{ "email": "ana@email.com", "senha": "12345678" }
+
+### Perfil do usuario logado
+GET {{url}}/api/usuario/perfil
+Authorization: Bearer {{token}}
+
+### Categorias de despesa
+GET {{url}}/api/categorias?tipo=despesa
+Authorization: Bearer {{token}}
+
+### Nova transacao
+POST {{url}}/api/transacoes
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "descricao": "Cinema com amigos", "valor": 78, "tipo": "despesa", "categoria": "Lazer", "data": "2026-09-21" }
+
+### Listar todas as transacoes
+GET {{url}}/api/transacoes
+Authorization: Bearer {{token}}
+
+### Listar so as despesas de setembro
+GET {{url}}/api/transacoes?tipo=despesa&mes=2026-09
+Authorization: Bearer {{token}}
+
+### Buscar por texto
+GET {{url}}/api/transacoes?busca=cinema
+Authorization: Bearer {{token}}
+
+### Detalhes de uma transacao
+GET {{url}}/api/transacoes/1
+Authorization: Bearer {{token}}
+
+### Editar transacao
+PUT {{url}}/api/transacoes/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "descricao": "Cinema e pipoca", "valor": 95.5, "tipo": "despesa", "categoria": "Lazer", "data": "2026-09-21" }
+
+### Excluir transacao
+DELETE {{url}}/api/transacoes/1
+Authorization: Bearer {{token}}
+
+### Resumo do Dashboard
+GET {{url}}/api/resumo
+Authorization: Bearer {{token}}
