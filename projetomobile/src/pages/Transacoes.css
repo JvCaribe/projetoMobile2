@@ -13,7 +13,7 @@
   --in: #10b981;
   --out: #f43f5e;
 
-  --nav-h: calc(69px + env(safe-area-inset-bottom, 0px)); /* 8 + 52 + 8 + borda, igual à barra global */
+  --nav-h: calc(69px + env(safe-area-inset-bottom, 0px)); 
 
   position: relative;
   display: flex;
@@ -80,7 +80,9 @@
   flex-direction: column;
   gap: 15px;
 }
-
+.transacoes > * {
+  flex-shrink: 0;
+}
 /* Cabeçalho  */
 .transacoes__cabecalho {
   display: flex;

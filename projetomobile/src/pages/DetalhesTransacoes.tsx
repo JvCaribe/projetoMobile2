@@ -2,7 +2,7 @@ import { IonPage } from '@ionic/react';
 import React, { useEffect, useRef, useState } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 
-import { CATEGORIAS, useTransacoes } from '../data/transacoes';
+import { CATEGORIAS, excluirTransacao, useTransacoes } from '../data/transacoes';
 import './DetalhesTransacoes.css';
 
 const formatarValor = (valor: number): string =>
@@ -37,7 +37,6 @@ useEffect(() => {
   return () => window.removeEventListener('keydown', aoTeclar);
 }, [confirmando]);
 
-  /* Id inexistente: volta para a lista */
   if (!transacao) return <Navigate to="/transacoes" replace />;
 
   const { descricao, categoria, tipo, valor, data } = transacao;
@@ -46,14 +45,10 @@ useEffect(() => {
 
   const voltar = () => navigate('/transacoes');
 
-  const editar = () => {
-    // TODO: abrir a tela/modal de edição
-    console.log('editar', transacao);
-  };
+  const editar = () => navigate(`/transacoes/${transacao.id}/editar`);
 
   const excluir = () => {
-    // TODO: remover a transação do seu estado/storage
-    console.log('excluir', transacao);
+    excluirTransacao(transacao.id);
     navigate('/transacoes', { replace: true });
   };
 
