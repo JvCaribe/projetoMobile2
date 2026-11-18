@@ -1,3 +1,4 @@
+import { IonContent, IonFooter, IonPage } from "@ionic/react";
 import React, { useEffect, useState } from "react";
 
 import BarraNavegacao from "../components/BarraNavegacao";
@@ -28,18 +29,20 @@ const Configuracoes: React.FC = () => {
   }, [tema]);
 
   return (
-    <div className="config-pagina">
-      <div className="config-tela">
+    <IonPage className="config-pagina">
+      <IonContent fullscreen className="config-content">
         <main className="config-conteudo">
           <h1 className="config-titulo">Configurações</h1>
           <SeletorTema tema={tema} onMudar={setTema} />
           <CardPerfil nome={USUARIO.nome} email={USUARIO.email} />
           <CardSobre informacoes={INFO_APP} />
         </main>
+      </IonContent>
 
+      <IonFooter className="ion-no-border">
         <BarraNavegacao abaAtiva="configuracoes" />
-      </div>
-    </div>
+      </IonFooter>
+    </IonPage>
   );
 };
 

@@ -1,2 +1,19 @@
 /* For information on how to create your own theme, please refer to:
 http://ionicframework.com/docs/theming/ */
+/* ===== Centralizar o conteúdo das telas em janelas largas ===== */
+.login,
+.cadastro,
+.nova,
+.dash,
+.tipo {
+  width: 100%;
+  margin-inline: auto;
+}
+
+.login,
+.cadastro { max-width: 440px; }
+
+.nova { max-width: 560px; }
+
+.dash { max-width: 960px; }
+.tipo { max-width: 720px; }

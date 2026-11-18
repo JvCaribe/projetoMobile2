@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import { IonContent, IonFooter, IonPage } from "@ionic/react";
 import { useNavigate } from "react-router-dom";
 
 import BarraNavegacao from "../components/BarraNavegacao";
@@ -66,109 +67,113 @@ const Transacoes: React.FC = () => {
   }, [busca, filtro, transacoes]);
 
   return (
-    <div className="tela-transacoes">
-      <main className="transacoes">
-        <header className="transacoes__cabecalho">
-          <h1 className="transacoes__titulo">Histórico / Extrato</h1>
-          <button
-            type="button"
-            className="botao-adicionar"
-            aria-label="Adicionar transação"
-            onClick={() => navigate("/transacoes/nova")}
-          >
-            <svg
-              width="26"
-              height="26"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.4"
-              strokeLinecap="round"
-              aria-hidden="true"
-            >
-              <path d="M12 5v14M5 12h14" />
-            </svg>
-          </button>
-        </header>
-
-        <input
-          type="search"
-          className="campo-busca"
-          placeholder="Buscar transação..."
-          aria-label="Buscar transação"
-          value={busca}
-          onChange={(e) => setBusca(e.target.value)}
-        />
-
-        <div className="filtros" role="group" aria-label="Filtrar por tipo">
-          {FILTROS.map(({ id, rotulo }) => (
+    <IonPage className="tela-transacoes">
+      <IonContent fullscreen className="transacoes-content">
+        <main className="transacoes">
+          <header className="transacoes__cabecalho">
+            <h1 className="transacoes__titulo">Histórico / Extrato</h1>
             <button
-              key={id}
               type="button"
-              className={`filtro ${filtro === id ? "filtro--ativo" : ""}`}
-              aria-pressed={filtro === id}
-              onClick={() => setFiltro(id)}
+              className="botao-adicionar"
+              aria-label="Adicionar transação"
+              onClick={() => navigate("/transacoes/nova")}
             >
-              {rotulo}
+              <svg
+                width="26"
+                height="26"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.4"
+                strokeLinecap="round"
+                aria-hidden="true"
+              >
+                <path d="M12 5v14M5 12h14" />
+              </svg>
             </button>
-          ))}
-        </div>
+          </header>
 
-        {grupos.length === 0 && (
-          <p className="transacoes__vazio">
-            Nenhuma transação encontrada. Tente outra busca ou filtro.
-          </p>
-        )}
+          <input
+            type="search"
+            className="campo-busca"
+            placeholder="Buscar transação..."
+            aria-label="Buscar transação"
+            value={busca}
+            onChange={(e) => setBusca(e.target.value)}
+          />
 
-        {grupos.map((itens) => (
-          <section key={itens[0].data.slice(0, 7)} className="mes">
-            <h2 className="mes__titulo">{formatarMes(itens[0].data)}</h2>
+          <div className="filtros" role="group" aria-label="Filtrar por tipo">
+            {FILTROS.map(({ id, rotulo }) => (
+              <button
+                key={id}
+                type="button"
+                className={`filtro ${filtro === id ? "filtro--ativo" : ""}`}
+                aria-pressed={filtro === id}
+                onClick={() => setFiltro(id)}
+              >
+                {rotulo}
+              </button>
+            ))}
+          </div>
 
-            <ul className="lista">
-              {itens.map((t) => {
-                const { sigla, cor } = CATEGORIAS[t.categoria];
-                return (
-                  <li key={t.id}>
-                    <button
-                      type="button"
-                      className="card-transacao"
-                      onClick={() => navigate(`/transacoes/${t.id}`)}
-                      aria-label={`${t.descricao}, ${t.tipo}, ${formatarValor(
-                        t.valor,
-                        t.tipo
-                      )}, ${t.categoria}, ${formatarDia(t.data)}`}
-                    >
-                      <span
-                        className="card-transacao__icone"
-                        style={{ color: cor, backgroundColor: `${cor}2E` }}
-                        aria-hidden="true"
+          {grupos.length === 0 && (
+            <p className="transacoes__vazio">
+              Nenhuma transação encontrada. Tente outra busca ou filtro.
+            </p>
+          )}
+
+          {grupos.map((itens) => (
+            <section key={itens[0].data.slice(0, 7)} className="mes">
+              <h2 className="mes__titulo">{formatarMes(itens[0].data)}</h2>
+
+              <ul className="lista">
+                {itens.map((t) => {
+                  const { sigla, cor } = CATEGORIAS[t.categoria];
+                  return (
+                    <li key={t.id}>
+                      <button
+                        type="button"
+                        className="card-transacao"
+                        onClick={() => navigate(`/transacoes/${t.id}`)}
+                        aria-label={`${t.descricao}, ${t.tipo}, ${formatarValor(
+                          t.valor,
+                          t.tipo
+                        )}, ${t.categoria}, ${formatarDia(t.data)}`}
                       >
-                        {sigla}
-                      </span>
-
-                      <span className="card-transacao__texto">
-                        <span className="card-transacao__nome">{t.descricao}</span>
-                        <span className="card-transacao__meta">
-                          {t.categoria} · {formatarDia(t.data)}
+                        <span
+                          className="card-transacao__icone"
+                          style={{ color: cor, backgroundColor: `${cor}2E` }}
+                          aria-hidden="true"
+                        >
+                          {sigla}
                         </span>
-                      </span>
 
-                      <span
-                        className={`card-transacao__valor card-transacao__valor--${t.tipo}`}
-                      >
-                        {formatarValor(t.valor, t.tipo)}
-                      </span>
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
-          </section>
-        ))}
-      </main>
+                        <span className="card-transacao__texto">
+                          <span className="card-transacao__nome">{t.descricao}</span>
+                          <span className="card-transacao__meta">
+                            {t.categoria} · {formatarDia(t.data)}
+                          </span>
+                        </span>
 
-      <BarraNavegacao abaAtiva="transacoes" />
-    </div>
+                        <span
+                          className={`card-transacao__valor card-transacao__valor--${t.tipo}`}
+                        >
+                          {formatarValor(t.valor, t.tipo)}
+                        </span>
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
+          ))}
+        </main>
+      </IonContent>
+
+      <IonFooter className="ion-no-border">
+        <BarraNavegacao abaAtiva="transacoes" />
+      </IonFooter>
+    </IonPage>
   );
 };
 
