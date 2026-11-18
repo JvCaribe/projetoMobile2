@@ -3,3 +3,7 @@ node_modules/
 *.sqlite
 *.db
 *.log
+
+# Configuracoes pessoais do editor (cada integrante tem as suas)
+.vscode/settings.json
+settings.json
