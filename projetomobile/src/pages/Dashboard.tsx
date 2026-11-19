@@ -156,7 +156,7 @@ const Dashboard: React.FC = () => {
               <button
                 type="button"
                 className="dash__link"
-                onClick={() => console.log('TODO: abrir transações')}
+                onClick={() => navigate('/transacoes')}
               >
                 Ver tudo
               </button>
