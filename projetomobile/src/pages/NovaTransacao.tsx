@@ -2,7 +2,7 @@ import { IonContent, IonPage } from '@ionic/react';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { adicionarTransacao, CATEGORIAS, CATEGORIAS_POR_TIPO } from '../data/transacoes';
+import { CATEGORIAS, CATEGORIAS_POR_TIPO } from '../data/transacoes';
 import type { Categoria, Tipo } from '../data/transacoes';
 import './NovaTransacao.css';
 
@@ -54,19 +54,54 @@ const NovaTransacao: React.FC = () => {
     setCentavos(digitos ? Number(digitos) : 0);
   };
 
-  const salvar = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formularioValido || categoria === null) return;
+  
+const salvar = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-    adicionarTransacao({
-      descricao: descricao.trim(),
-      categoria,
-      tipo,
-      valor: centavos / 100,
-      data,
-    });
+  if (!formularioValido || categoria === null) return;
+
+  const token = sessionStorage.getItem('finanza_token');
+
+  if (!token) {
+    alert('Você precisa fazer login novamente.');
+    navigate('/login');
+    return;
+  }
+
+  try {
+    const resposta = await fetch(
+      'http://localhost:3000/api/transacoes',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          descricao: descricao.trim(),
+          categoria,
+          tipo,
+          valor: centavos / 100,
+          data
+        })
+      }
+    );
+
+    const dados = await resposta.json();
+
+    if (!resposta.ok) {
+      alert(dados.mensagem || 'Erro ao salvar transação.');
+      return;
+    }
+
+    alert('Transação salva com sucesso!');
     navigate('/transacoes', { replace: true });
-  };
+
+  } catch (erro) {
+    alert('Não foi possível conectar ao servidor.');
+    console.error(erro);
+  }
+};
 
   return (
     <IonPage>
