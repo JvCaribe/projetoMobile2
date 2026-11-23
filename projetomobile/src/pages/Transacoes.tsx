@@ -1,8 +1,9 @@
-import React, { useMemo, useState } from "react";
+
+import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import BarraNavegacao from "../components/BarraNavegacao";
-import { CATEGORIAS, useTransacoes } from "../data/transacoes";
+import { CATEGORIAS } from "../data/transacoes";
 import type { Tipo, Transacao } from "../data/transacoes";
 import "./Transacoes.css";
 
@@ -13,6 +14,7 @@ const formatarValor = (valor: number, tipo: Tipo): string => {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });
+
   return `${tipo === "receita" ? "+" : "-"}R$ ${numero}`;
 };
 
@@ -39,26 +41,99 @@ const FILTROS: { id: Filtro; rotulo: string }[] = [
 
 const Transacoes: React.FC = () => {
   const navigate = useNavigate();
+
   const [busca, setBusca] = useState("");
   const [filtro, setFiltro] = useState<Filtro>("todas");
-  const transacoes = useTransacoes();
 
+  const [transacoes, setTransacoes] = useState<Transacao[]>([]);
+  const [carregando, setCarregando] = useState(true);
+  const [erro, setErro] = useState("");
+
+  // Buscar transacoes reais no backend de Danilo
+  useEffect(() => {
+    const carregarTransacoes = async () => {
+      const token = sessionStorage.getItem("finanza_token");
+
+      if (!token) {
+        setErro("Faca login para visualizar suas transacoes.");
+        setCarregando(false);
+        return;
+      }
+
+      try {
+        const resposta = await fetch(
+          "http://localhost:3000/api/transacoes",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (!resposta.ok) {
+          if (resposta.status === 401) {
+            throw new Error("Sessao expirada. Faca login novamente.");
+          }
+
+          throw new Error("Erro ao buscar transacoes no servidor.");
+        }
+
+        const dados = await resposta.json();
+
+        if (!Array.isArray(dados)) {
+          throw new Error("Formato de resposta inesperado.");
+        }
+
+        const transacoesFormatadas: Transacao[] = dados.map(
+          (item: Transacao) => ({
+            ...item,
+            valor: Number(item.valor),
+            data: String(item.data).slice(0, 10),
+          })
+        );
+
+        setTransacoes(transacoesFormatadas);
+        setErro("");
+      } catch (erro) {
+        console.error("Erro ao carregar transacoes:", erro);
+
+        setErro(
+          erro instanceof Error
+            ? erro.message
+            : "Nao foi possivel carregar as transacoes."
+        );
+      } finally {
+        setCarregando(false);
+      }
+    };
+
+    void carregarTransacoes();
+  }, []);
+
+  // Organizar e filtrar as transacoes
   const grupos = useMemo(() => {
     const termo = normalizar(busca.trim());
 
-    const filtradas = transacoes.filter((t) => {
-      if (filtro === "receitas" && t.tipo !== "receita") return false;
-      if (filtro === "despesas" && t.tipo !== "despesa") return false;
-      if (!termo) return true;
-      return (
-        normalizar(t.descricao).includes(termo) ||
-        normalizar(t.categoria).includes(termo)
-      );
-    }).sort((a, b) => b.data.localeCompare(a.data));
+    const filtradas = transacoes
+      .filter((t) => {
+        if (filtro === "receitas" && t.tipo !== "receita") return false;
+        if (filtro === "despesas" && t.tipo !== "despesa") return false;
+
+        if (!termo) return true;
+
+        return (
+          normalizar(t.descricao).includes(termo) ||
+          normalizar(t.categoria).includes(termo)
+        );
+      })
+      .sort((a, b) => b.data.localeCompare(a.data));
 
     const porMes = new Map<string, Transacao[]>();
+
     filtradas.forEach((t) => {
       const chave = t.data.slice(0, 7);
+
       porMes.set(chave, [...(porMes.get(chave) ?? []), t]);
     });
 
@@ -69,7 +144,10 @@ const Transacoes: React.FC = () => {
     <div className="tela-transacoes">
       <main className="transacoes">
         <header className="transacoes__cabecalho">
-          <h1 className="transacoes__titulo">Histórico / Extrato</h1>
+          <h1 className="transacoes__titulo">
+            Histórico / Extrato
+          </h1>
+
           <button
             type="button"
             className="botao-adicionar"
@@ -100,12 +178,18 @@ const Transacoes: React.FC = () => {
           onChange={(e) => setBusca(e.target.value)}
         />
 
-        <div className="filtros" role="group" aria-label="Filtrar por tipo">
+        <div
+          className="filtros"
+          role="group"
+          aria-label="Filtrar por tipo"
+        >
           {FILTROS.map(({ id, rotulo }) => (
             <button
               key={id}
               type="button"
-              className={`filtro ${filtro === id ? "filtro--ativo" : ""}`}
+              className={`filtro ${
+                filtro === id ? "filtro--ativo" : ""
+              }`}
               aria-pressed={filtro === id}
               onClick={() => setFiltro(id)}
             >
@@ -114,40 +198,70 @@ const Transacoes: React.FC = () => {
           ))}
         </div>
 
-        {grupos.length === 0 && (
+        {carregando && (
+          <p className="transacoes__vazio">
+            Carregando transações...
+          </p>
+        )}
+
+        {erro && (
+          <p className="transacoes__vazio" role="alert">
+            {erro}
+          </p>
+        )}
+
+        {!carregando && !erro && grupos.length === 0 && (
           <p className="transacoes__vazio">
             Nenhuma transação encontrada. Tente outra busca ou filtro.
           </p>
         )}
 
         {grupos.map((itens) => (
-          <section key={itens[0].data.slice(0, 7)} className="mes">
-            <h2 className="mes__titulo">{formatarMes(itens[0].data)}</h2>
+          <section
+            key={itens[0].data.slice(0, 7)}
+            className="mes"
+          >
+            <h2 className="mes__titulo">
+              {formatarMes(itens[0].data)}
+            </h2>
 
             <ul className="lista">
               {itens.map((t) => {
-                const { sigla, cor } = CATEGORIAS[t.categoria];
+                const { sigla, cor } =
+                  CATEGORIAS[t.categoria] ??
+                  CATEGORIAS["Outros"];
+
                 return (
                   <li key={t.id}>
                     <button
                       type="button"
                       className="card-transacao"
-                      onClick={() => navigate(`/transacoes/${t.id}`)}
-                      aria-label={`${t.descricao}, ${t.tipo}, ${formatarValor(
+                      onClick={() =>
+                        navigate(`/transacoes/${t.id}`)
+                      }
+                      aria-label={`${
+                        t.descricao
+                      }, ${t.tipo}, ${formatarValor(
                         t.valor,
                         t.tipo
                       )}, ${t.categoria}, ${formatarDia(t.data)}`}
                     >
                       <span
                         className="card-transacao__icone"
-                        style={{ color: cor, backgroundColor: `${cor}2E` }}
+                        style={{
+                          color: cor,
+                          backgroundColor: `${cor}2E`,
+                        }}
                         aria-hidden="true"
                       >
                         {sigla}
                       </span>
 
                       <span className="card-transacao__texto">
-                        <span className="card-transacao__nome">{t.descricao}</span>
+                        <span className="card-transacao__nome">
+                          {t.descricao}
+                        </span>
+
                         <span className="card-transacao__meta">
                           {t.categoria} · {formatarDia(t.data)}
                         </span>

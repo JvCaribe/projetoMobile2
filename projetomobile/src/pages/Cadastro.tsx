@@ -24,12 +24,44 @@ const Cadastro: React.FC = () => {
     else router.push('/login', 'back');
   };
 
-  const handleCriarConta = () => {
-    setTentou(true);
-    if (!formularioValido) return;
-    // TODO: integrar com a API (POST /auth/register)
-    console.log({ nome, email, senha });
-  };
+  
+const handleCriarConta = async () => {
+  setTentou(true);
+
+  if (!formularioValido) return;
+
+  try {
+    const resposta = await fetch(
+      'http://localhost:3000/api/auth/cadastro',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          nome: nome.trim(),
+          email: email.trim(),
+          senha
+        })
+      }
+    );
+
+    const dados = await resposta.json();
+
+    if (!resposta.ok) {
+      alert(dados.mensagem || 'Erro ao criar conta.');
+      return;
+    }
+
+    alert('Conta criada com sucesso!');
+    router.push('/login', 'root');
+
+  } catch (erro) {
+    alert('Não foi possível conectar ao servidor.');
+    console.error(erro);
+  }
+};
+  
 
   return (
     <IonPage>

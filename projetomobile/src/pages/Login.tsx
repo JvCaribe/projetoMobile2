@@ -8,10 +8,36 @@ const Login: React.FC = () => {
   const [senha, setSenha] = useState('');
   const [mostrarSenha, setMostrarSenha] = useState(false);
 
-  const handleEntrar = () => {
-    // TODO: integrar com sua autenticação
-    console.log({ email, senha });
-  };
+  const handleEntrar = async () => {
+  try {
+    const resposta = await fetch(
+      'http://localhost:3000/api/auth/login',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, senha })
+      }
+    );
+
+    const dados = await resposta.json();
+
+    if (!resposta.ok) {
+      alert(dados.mensagem || 'Erro ao fazer login.');
+      return;
+    }
+
+    sessionStorage.setItem('finanza_token', dados.token);
+
+    alert('Login realizado com sucesso!');
+    window.location.href = '/dashboard';
+
+  } catch (erro) {
+    alert('Não foi possível conectar ao servidor.');
+    console.error(erro);
+  }
+};
 
   return (
     <IonPage>
