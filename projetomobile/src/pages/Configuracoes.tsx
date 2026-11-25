@@ -6,7 +6,6 @@ import BarraNavegacao from "../components/BarraNavegacao";
 import CardPerfil from "../components/CardPerfil";
 import CardSobre from "../components/CardSobre";
 import SeletorTema from "../components/SeletorTema";
-
 import { aplicarTema, lerTemaSalvo } from "../theme/tema";
 import type { Tema } from "../theme/tema";
 
@@ -21,8 +20,12 @@ type Usuario = {
 
 const INFO_APP = [
   { rotulo: "Versão", valor: "1.0.0" },
-  { rotulo: "Desenvolvido por", valor: "Projeto Faculdade" },
-  { rotulo: "Ano", valor: "2026" },
+  { rotulo: "Repo", valor: "github.com/JvCaribe/projetoMobile2" },
+  { rotulo: "Alunos", valor: "Ana Anete Higino de V. Pereira" },
+  { rotulo: "", valor: "Danilo Lopes Cavalcanti" },
+  { rotulo: "", valor: "João Lucas Araújo de Almeida" },
+  { rotulo: "", valor: "João Victhor Caribé" },
+  { rotulo: "", valor: "João Vitor Vieira Souto" }
 ];
 
 const Configuracoes: React.FC = () => {
