@@ -142,17 +142,7 @@ npm run lint         # ESLint + Prettier
 
 Abra `backend/testes.http` no VS Code com a extensão **REST Client** (ou copie os exemplos para o Postman ou Insomnia). A ordem sugerida é: cadastro → login → copiar o `token` para a variável `@token` → demais rotas.
 
-
-## Problemas conhecidos e pontos de atenção
-
-- **Endereço da API fixo:** as telas chamam `http://localhost:3000` diretamente. No navegador do mesmo computador funciona, mas em um celular real ou emulador o endereço precisa ser o IP do computador (ou centralizado em uma variável de ambiente).
-- **Sessão:** o token de login fica em `sessionStorage` e vale por 1 dia no servidor; ao fechar a aba, é preciso entrar de novo. As telas não redirecionam sozinhas para o login quando o token expira: mostram a mensagem de erro.
-- **Pasta `database/`:** `schema.sql` e `dados_iniciais.sql` não criam a coluna `excluido_em`, que a API usa, e `indices_exclusao_logica.sql` falha no MySQL (usa `ADD COLUMN IF NOT EXISTS`, que só existe no MariaDB, e referencia uma tabela `contas` que não existe). Use apenas `backend/sql/banco.sql`.
-- **Recuperação de senha:** a tela de login tem o link "Esqueci a senha", mas não existe tela nem rota na API para isso.
-- **Teste e2e desatualizado:** `projetomobile/e2e/app.spec.ts` ainda espera o texto do template do Ionic ("Ready to create an app?") e falha.
-- **Segurança (para produção):** o CORS está aberto para qualquer origem, não há limite de tentativas de login, e o `appId` do Capacitor ainda é o padrão (`io.ionic.starter`).
-
 ## Documentação adicional
 
 - [`backend/README.md`](backend/README.md): rotas, filtros, códigos de resposta e decisões da API.
-- [`ALTERACOES.md`](ALTERACOES.md): histórico das alterações.
+
