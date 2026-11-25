@@ -13,8 +13,6 @@ projetoMobile2/
 │   ├── sql/banco.sql   # Script ÚNICO que cria o banco, as tabelas e as categorias
 │   ├── src/            # server, rotas, middleware de autenticação e conexão com o banco
 │   └── testes.http     # Exemplos de requisições para testar a API
-├── database/        # Scripts SQL antigos (veja o aviso abaixo)
-└── ALTERACOES.md    # Registro das alterações feitas no frontend
 ```
 
 ## Funcionalidades
@@ -87,7 +85,7 @@ npm run test:unit    # testes unitários (Vitest)
 npm run lint         # ESLint + Prettier
 ```
 
-Use **somente** `backend/sql/banco.sql`. Ele cria o banco `finanza`, as tabelas e as categorias padrão, e pode ser executado mais de uma vez.
+Use `backend/sql/banco.sql`. Ele cria o banco `finanza`, as tabelas e as categorias padrão, e pode ser executado mais de uma vez.
 
 - **MySQL Workbench:** abra o arquivo e execute tudo.
 - **Linha de comando:**
