@@ -1,11 +1,12 @@
 
-import { IonContent, IonFooter, IonPage } from "@ionic/react";
+import { IonContent, IonFooter, IonPage, useIonRouter } from "@ionic/react";
 import React, { useEffect, useState } from "react";
 
 import BarraNavegacao from "../components/BarraNavegacao";
 import CardPerfil from "../components/CardPerfil";
 import CardSobre from "../components/CardSobre";
 import SeletorTema from "../components/SeletorTema";
+import { useAviso } from "../hooks/useAviso";
 import { aplicarTema, lerTemaSalvo } from "../theme/tema";
 import type { Tema } from "../theme/tema";
 
@@ -29,6 +30,8 @@ const INFO_APP = [
 ];
 
 const Configuracoes: React.FC = () => {
+  const router = useIonRouter();
+  const aviso = useAviso();
   const [tema, setTema] = useState<Tema>(lerTemaSalvo);
 
   const [usuario, setUsuario] = useState<Usuario | null>(null);
@@ -116,6 +119,14 @@ const Configuracoes: React.FC = () => {
     return () => controller.abort();
   }, []);
 
+  // Encerra a sessão: apaga o token e volta ao login, limpando o histórico
+  // de telas (assim o botão voltar não retorna a uma tela autenticada).
+  const sair = () => {
+    sessionStorage.removeItem("finanza_token");
+    aviso.info("Você saiu da conta.");
+    router.push("/login", "root");
+  };
+
   return (
     <IonPage className="config-pagina">
       <IonContent fullscreen className="config-content">
@@ -147,6 +158,7 @@ const Configuracoes: React.FC = () => {
             <CardPerfil
               nome={usuario.nome}
               email={usuario.email}
+              onSair={sair}
             />
           )}
 

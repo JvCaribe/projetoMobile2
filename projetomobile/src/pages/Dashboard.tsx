@@ -1,27 +1,12 @@
-
-import {
-  IonContent,
-  IonFooter,
-  IonIcon,
-  IonPage,
-  useIonViewWillEnter,
-} from '@ionic/react';
-
+import {IonContent, IonFooter, IonIcon, IonPage, useIonViewWillEnter,} from '@ionic/react';
+import {  arrowDownOutline,  arrowUpOutline,  eyeOffOutline, eyeOutline,} from 'ionicons/icons';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import {
-  arrowDownOutline,
-  arrowUpOutline,
-  eyeOffOutline,
-  eyeOutline,
-} from 'ionicons/icons';
-
 import BarraNavegacao from '../components/BarraNavegacao';
+import './Dashboard.css';
 import { CATEGORIAS } from '../data/transacoes';
 import type { Categoria, Transacao } from '../data/transacoes';
-
-import './Dashboard.css';
 
 const API = 'http://localhost:3000';
 

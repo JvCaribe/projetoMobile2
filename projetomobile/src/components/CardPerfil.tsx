@@ -3,6 +3,8 @@ import React from "react";
 type CardPerfilProps = {
   nome: string;
   email: string;
+  /** Quando informado, mostra o botão "Sair da conta" no card. */
+  onSair?: () => void;
 };
 
 function iniciais(nome: string): string {
@@ -12,7 +14,7 @@ function iniciais(nome: string): string {
   return (primeira + ultima).toUpperCase();
 }
 
-const CardPerfil: React.FC<CardPerfilProps> = ({ nome, email }) => (
+const CardPerfil: React.FC<CardPerfilProps> = ({ nome, email, onSair }) => (
   <section className="config-card" aria-labelledby="titulo-perfil">
     <h2 id="titulo-perfil" className="config-card__titulo">
       Perfil
@@ -27,6 +29,27 @@ const CardPerfil: React.FC<CardPerfilProps> = ({ nome, email }) => (
         <p className="perfil__email">{email}</p>
       </div>
     </div>
+
+    {onSair && (
+      <button type="button" className="perfil__sair" onClick={onSair}>
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+          <path d="M16 17l5-5-5-5" />
+          <path d="M21 12H9" />
+        </svg>
+        Sair da conta
+      </button>
+    )}
   </section>
 );
 

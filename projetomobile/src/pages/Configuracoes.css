@@ -15,6 +15,7 @@
   --cor-botao-inativo: #1c2638;
   --cor-sobre-principal: #04110e; /* texto sobre o verde: contraste alto */
   --cor-moldura: #1a2236;
+  --cor-perigo: #f43f5e; /* guia: barra de despesas (escuro) */
 }
 
 :root[data-tema="claro"] {
@@ -28,6 +29,7 @@
   --cor-botao-inativo: #eef2fb;
   --cor-sobre-principal: #ffffff;
   --cor-moldura: #dfe6f5;
+  --cor-perigo: #e11d48; /* guia: barra de despesas (claro) */
 }
 .config-pagina {
   font-family: "Nunito Sans", system-ui, sans-serif;
@@ -146,6 +148,43 @@
 
 .perfil__dados {
   min-width: 0;
+}
+
+.perfil__sair {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 44px;
+  margin-top: 18px;
+  padding: 0 16px;
+  border: 1px solid var(--cor-perigo);
+  border-radius: 12px;
+  background: transparent;
+  color: var(--cor-perigo);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.perfil__sair:hover,
+.perfil__sair:active {
+  background: var(--cor-perigo);
+  color: #fff;
+}
+
+.perfil__sair:focus-visible {
+  outline: 2px solid var(--cor-perigo);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .perfil__sair {
+    transition: none;
+  }
 }
 
 .perfil__nome {

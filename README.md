@@ -30,7 +30,7 @@ projetoMobile2/
 | Nova Transação | `/transacoes/nova` | Despesa ou Receita, valor com máscara de moeda, categoria, descrição e data. Salvar fica desabilitado até o formulário estar completo e grava na API. |
 | Detalhes | `/transacoes/:id` | Dados de uma transação, **edição** em uma janela sobre a tela e **exclusão** com confirmação (exclusão lógica no banco). |
 | Receitas / Despesas | `/receitas`, `/despesas` | Total do tipo, quantidade e lista das transações, da mais recente para a mais antiga. |
-| Configurações | `/configuracoes` | Perfil do usuário logado, informações do app e escolha do tema. |
+| Configurações | `/configuracoes` | Perfil do usuário logado com o botão **Sair da conta** (encerra a sessão e volta ao login), informações do app e escolha do tema. |
 
 Recursos gerais:
 
