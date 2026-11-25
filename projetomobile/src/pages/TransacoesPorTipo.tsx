@@ -2,8 +2,8 @@
 import { IonContent, IonPage, useIonRouter } from '@ionic/react';
 import React, { useEffect, useMemo, useState } from 'react';
 
-// import { CATEGORIAS } from '../data/transacoes';
-// import type { Tipo, Transacao } from '../data/transacoes';
+import { CATEGORIAS } from '../data/transacoes';
+import type { Tipo, Transacao } from '../data/transacoes';
 import './TransacoesPorTipo.css';
 
 type TransacoesPorTipoProps = {

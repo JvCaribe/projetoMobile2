@@ -1,6 +1,5 @@
-
-import React, { useEffect, useMemo, useState } from "react";
 import { IonContent, IonFooter, IonPage, useIonViewWillEnter } from "@ionic/react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import BarraNavegacao from "../components/BarraNavegacao";
