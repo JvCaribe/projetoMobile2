@@ -4,6 +4,7 @@ import {
   IonFooter,
   IonIcon,
   IonPage,
+  useIonViewWillEnter,
 } from '@ionic/react';
 
 import React, { useEffect, useState } from 'react';
@@ -73,6 +74,14 @@ const Dashboard: React.FC = () => {
 
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState('');
+
+  // O Ionic mantém as telas montadas ao navegar. Este contador faz o
+  // Dashboard recarregar os dados toda vez que a tela volta a aparecer.
+  const [recarregar, setRecarregar] = useState(0);
+
+  useIonViewWillEnter(() => {
+    setRecarregar((n) => n + 1);
+  });
 
   // Buscar as informacoes reais no backend do Danilo
   useEffect(() => {
@@ -183,7 +192,7 @@ const Dashboard: React.FC = () => {
     void carregarDashboard();
 
     return () => controller.abort();
-  }, []);
+  }, [recarregar]);
 
   const nomeUsuario = usuario?.nome || 'Usuário';
 

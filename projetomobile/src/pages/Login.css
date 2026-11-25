@@ -15,6 +15,9 @@
   --muted: #64748b;
   --on-accent: #04211b;
 
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
   min-height: 100%;
   padding: 54px 27px 28px;
   color: var(--text);
@@ -193,4 +196,17 @@
   color: var(--accent);
   font-weight: 600;
   text-decoration: none;
+}
+
+/* Responsividade: celulares pequenos e telas maiores */
+@media (max-width: 360px) {
+  .login {
+    padding: 40px 18px 24px;
+  }
+}
+
+@media (min-width: 768px) {
+  .login {
+    padding: 72px 32px 40px;
+  }
 }

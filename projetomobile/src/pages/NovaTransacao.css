@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Nunito+Sans:wght@400;600;700&display=swap');
 
-/* Usa os tokens --cor-* (tema claro/escuro) definidos em Configuracoes.css */
 .nova-content {
   --background: var(--cor-fundo, #090e1c);
   font-family: 'Nunito Sans', system-ui, sans-serif;
@@ -10,6 +9,9 @@
   --in: #10b981;
   --out: #f43f5e;
 
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
   min-height: 100%;
   padding: 43px 24px 28px;
   color: var(--cor-texto, #f1f5f9);
@@ -19,7 +21,7 @@
   gap: 18px;
 }
 
-/* Modo claro: cores de receitas e despesas (guia de UI/UX) */
+/* Modo claro*/
 :root[data-tema='claro'] .nova {
   --in: #059669;
   --out: #e11d48;
@@ -270,5 +272,18 @@
   .nova__chip,
   .nova__salvar {
     transition: none;
+  }
+}
+
+/* Responsividade: celulares pequenos e telas maiores */
+@media (max-width: 360px) {
+  .nova {
+    padding: 43px 16px 24px;
+  }
+}
+
+@media (min-width: 768px) {
+  .nova {
+    padding: 56px 32px 40px;
   }
 }

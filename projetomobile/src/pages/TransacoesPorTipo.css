@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Nunito+Sans:wght@400;600;700&display=swap');
 
-/* Tokens: modo escuro por padrão; o claro vem logo abaixo (guia de UI/UX) */
+/* modo escuro */
 .tipo-content {
   --background: var(--cor-fundo, #090e1c);
   font-family: 'Nunito Sans', system-ui, sans-serif;
@@ -15,6 +15,9 @@
   --in: #10b981;
   --out: #f43f5e;
 
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
   min-height: 100%;
   padding: 48px 20px 28px;
   color: var(--text);
@@ -30,8 +33,8 @@
   --text: #0f1b2d;
   --muted: #5b6b82;
   --back-bg: #eef2fb;
-  --in: #059669; /* barra de receitas */
-  --out: #e11d48; /* barra de despesas */
+  --in: #059669; 
+  --out: #e11d48; 
 }
 
 .tipo--receita {
@@ -187,7 +190,6 @@
   color: var(--muted);
 }
 
-/* Texto só para leitores de tela */
 .tipo__sr {
   position: absolute;
   width: 1px;
@@ -198,4 +200,17 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* Responsividade: celulares pequenos e telas maiores */
+@media (max-width: 360px) {
+  .tipo {
+    padding: 40px 16px 24px;
+  }
+}
+
+@media (min-width: 768px) {
+  .tipo {
+    padding: 56px 32px 40px;
+  }
 }

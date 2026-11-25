@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Nunito+Sans:wght@400;600;700&display=swap');
 
-/* Medidas calibradas para 393 x 852 */
-
 .dash-content {
   --background: var(--cor-fundo, #090e1c);
   font-family: 'Nunito Sans', system-ui, sans-serif;
@@ -22,6 +20,9 @@
   --out: #f43f5e;
   --out-bg: #2d1d2d;
 
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
   min-height: 100%;
   padding: 43px 24px 28px;
   color: var(--text);
@@ -56,7 +57,7 @@
   font-family: 'JetBrains Mono', ui-monospace, monospace;
 }
 
-/* ===== Cabeçalho ===== */
+/*Cabeçalho */
 .dash__header {
   display: flex;
   align-items: center;
@@ -89,7 +90,7 @@
   font-size: 13px;
 }
 
-/* ===== Saldo total ===== */
+/*Saldo total*/
 .dash__balance {
   position: relative;
   overflow: hidden;
@@ -167,7 +168,7 @@
   cursor: pointer;
 }
 
-/* ===== Cards ===== */
+/*Cards */
 .dash__card {
   padding: 18px;
   background: var(--card);
@@ -309,7 +310,6 @@
   border-radius: 999px;
 }
 
-/* A coluna do valor tem largura fixa, como no protótipo */
 .dash__cat-value {
   width: 57px;
   text-align: right;
@@ -319,7 +319,7 @@
   color: var(--muted);
 }
 
-/* ===== Recentes ===== */
+/* Recentes */
 .dash__recent-head {
   display: flex;
   align-items: center;
@@ -405,7 +405,7 @@
   color: var(--out);
 }
 
-/* Modo claro: paleta geral e cores de receitas e despesas (guia de UI/UX) */
+/* Modo claro */
 :root[data-tema='claro'] .dash {
   --card: #ffffff;
   --border: #dfe5f1;
@@ -415,8 +415,45 @@
   --on-accent: #ffffff;
   --text: #0f1b2d;
   --muted: #5b6b82;
-  --in: #059669; /* barra de receitas */
-  --in-bg: #e2f6f0; /* botão "Ver Receitas" */
-  --out: #e11d48; /* barra de despesas */
-  --out-bg: #fee8eb; /* botão "Ver Despesas" */
+  --in: #059669; 
+  --in-bg: #e2f6f0; 
+  --out: #e11d48; 
+  --out-bg: #fee8eb; 
+}
+
+/* Responsividade: celulares pequenos e telas maiores */
+@media (max-width: 360px) {
+  .dash {
+    padding: 43px 16px 24px;
+  }
+}
+
+@media (min-width: 768px) {
+  .dash {
+    max-width: 880px;
+    padding: 56px 32px 40px;
+    gap: 20px;
+  }
+}
+
+/* Computador: ocupa mais a tela e põe os dois cartões lado a lado */
+@media (min-width: 1024px) {
+  .dash {
+    max-width: 1120px;
+    padding: 56px 40px 48px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 24px;
+  }
+
+  /* Cabeçalho, saldo e recentes ocupam a largura toda */
+  .dash > * {
+    grid-column: 1 / -1;
+  }
+
+  /* Receitas vs despesas e categorias ficam lado a lado */
+  .dash > .dash__card {
+    grid-column: auto;
+  }
 }
