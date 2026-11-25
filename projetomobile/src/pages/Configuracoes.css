@@ -1,8 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Nunito+Sans:wght@400;600;700&display=swap");
 
-/* ------------------------------------------------------------------ */
-/* Tokens de cor (guia de estilo Finanza)                              */
-/* ------------------------------------------------------------------ */
 :root,
 :root[data-tema="escuro"] {
   --cor-principal: #00a585;
@@ -13,7 +10,7 @@
   --cor-texto-suave: #8493ad;
   --cor-borda: rgba(148, 163, 184, 0.14);
   --cor-botao-inativo: #1c2638;
-  --cor-sobre-principal: #04110e; /* texto sobre o verde: contraste alto */
+  --cor-sobre-principal: #04110e; 
   --cor-moldura: #1a2236;
 }
 
@@ -30,36 +27,24 @@
   --cor-moldura: #dfe6f5;
 }
 .config-pagina {
-  min-height: 100dvh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--cor-moldura);
   font-family: "Nunito Sans", system-ui, sans-serif;
-  transition: background-color 0.25s ease;
 }
 
-.config-tela {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 393px;
-  height: 852px;
-  max-width: 100%;
-  max-height: 100dvh;
-  overflow: hidden;
-  background: var(--cor-fundo);
-  color: var(--cor-texto);
-  transition: background-color 0.25s ease, color 0.25s ease;
+.config-content {
+  --background: var(--cor-fundo);
 }
 
 .config-conteudo {
-  flex: 1;
-  overflow-y: auto;
+  width: 100%;
+  max-width: 640px;
+  min-height: 100%;
+  margin: 0 auto;
   padding: 56px 20px 24px;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  color: var(--cor-texto);
+  font-family: "Nunito Sans", system-ui, sans-serif;
 }
 
 .config-titulo {
@@ -69,9 +54,6 @@
   line-height: 1.2;
 }
 
-/* ------------------------------------------------------------------ */
-/* Cards                                                               */
-/* ------------------------------------------------------------------ */
 .config-card {
   background: var(--cor-bloco);
   border: 1px solid var(--cor-borda);
@@ -89,9 +71,6 @@
   color: var(--cor-texto-suave);
 }
 
-/* ------------------------------------------------------------------ */
-/* Opção de tema                                                       */
-/* ------------------------------------------------------------------ */
 .tema-opcoes {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -132,9 +111,7 @@
   opacity: 0.8;
 }
 
-/* ------------------------------------------------------------------ */
-/* Perfil                                                              */
-/* ------------------------------------------------------------------ */
+
 .perfil {
   display: flex;
   align-items: center;
@@ -173,9 +150,6 @@
   white-space: nowrap;
 }
 
-/* ------------------------------------------------------------------ */
-/* Sobre o app                                                         */
-/* ------------------------------------------------------------------ */
 .sobre {
   margin: 0;
   display: flex;
@@ -202,9 +176,6 @@
   text-align: right;
 }
 
-/* ------------------------------------------------------------------ */
-/* Navegação inferior                                                  */
-/* ------------------------------------------------------------------ */
 .config-nav {
   flex-shrink: 0;
   display: grid;
@@ -239,9 +210,6 @@
   cursor: default;
 }
 
-/* ------------------------------------------------------------------ */
-/* Foco visível e movimento reduzido (acessibilidade)                  */
-/* ------------------------------------------------------------------ */
 .tema-botao:focus-visible,
 .nav-item:focus-visible {
   outline: 2px solid var(--cor-principal);

@@ -12,7 +12,9 @@ export type Categoria =
   | 'Lazer'
   | 'Outros'
   | 'Freelance'
-  | 'Salário';
+  | 'Salário'
+  | 'Investimentos'
+  | 'Vendas';
 
 export type Transacao = {
   id: number;
@@ -20,7 +22,7 @@ export type Transacao = {
   categoria: Categoria;
   valor: number;
   tipo: Tipo;
-  data: string; // AAAA-MM-DD
+  data: string;
 };
 
 export const CATEGORIAS: Record<Categoria, { sigla: string; cor: string }> = {
@@ -33,16 +35,17 @@ export const CATEGORIAS: Record<Categoria, { sigla: string; cor: string }> = {
   Lazer: { sigla: 'LA', cor: '#E93D5B' },
   Outros: { sigla: 'OU', cor: '#94A3B8' },
   Freelance: { sigla: 'FR', cor: '#7C6CF2' },
-  Salário: { sigla: 'SA', cor: '#6366F1' }, // cor conforme o wireframe da página de receitas
+  Salário: { sigla: 'SA', cor: '#6366F1' }, 
+  Investimentos: { sigla: 'IN', cor: '#0EA5E9' },
+  Vendas: { sigla: 'VE', cor: '#F59E0B' },
 };
 
-/** Categorias disponíveis na tela "Nova transação", por tipo. */
 export const CATEGORIAS_POR_TIPO: Record<Tipo, Categoria[]> = {
   despesa: ['Moradia', 'Alimentação', 'Transporte', 'Saúde', 'Educação', 'Assinaturas', 'Lazer', 'Outros'],
-  receita: ['Salário', 'Freelance', 'Outros'],
+  receita: ['Salário', 'Freelance', 'Investimentos', 'Vendas', 'Outros'],
 };
 
-/* ===== Dados de exemplo (trocar pela API depois) ===== */
+/* Dados de exemplo (trocar pela API depois) */
 let transacoes: Transacao[] = [
   { id: 1, descricao: 'Cinema com amigos', categoria: 'Lazer', valor: 78, tipo: 'despesa', data: '2026-09-21' },
   { id: 2, descricao: 'Consulta médica', categoria: 'Saúde', valor: 155.8, tipo: 'despesa', data: '2026-09-20' },
@@ -56,7 +59,6 @@ let transacoes: Transacao[] = [
   { id: 10, descricao: 'Mercado semanal', categoria: 'Alimentação', valor: 320.5, tipo: 'despesa', data: '2026-09-07' },
 ];
 
-/* ===== Store mínima (em memória) ===== */
 const ouvintes = new Set<() => void>();
 
 const assinar = (ouvinte: () => void) => {
@@ -75,6 +77,18 @@ export function adicionarTransacao(nova: Omit<Transacao, 'id'>): Transacao {
   transacoes = [criada, ...transacoes];
   ouvintes.forEach((ouvinte) => ouvinte());
   return criada;
+}
+
+export function atualizarTransacao(id: number, dados: Omit<Transacao, 'id'>): void {
+  // TODO: trocar por PUT na API
+  transacoes = transacoes.map((t) => (t.id === id ? { id, ...dados } : t));
+  ouvintes.forEach((ouvinte) => ouvinte());
+}
+
+export function excluirTransacao(id: number): void {
+  // TODO: trocar por DELETE na API
+  transacoes = transacoes.filter((t) => t.id !== id);
+  ouvintes.forEach((ouvinte) => ouvinte());
 }
 
 export function useTransacoes(): Transacao[] {

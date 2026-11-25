@@ -13,18 +13,14 @@
   --in: #10b981;
   --out: #f43f5e;
 
-  --nav-h: calc(69px + env(safe-area-inset-bottom, 0px)); /* 8 + 52 + 8 + borda, igual à barra global */
-
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: min(393px, 100vw);
-  height: min(852px, 100dvh);
-  margin: 0 auto;
-  overflow: hidden;
-  background: var(--bg);
   color: var(--text);
   font-family: 'Nunito Sans', system-ui, sans-serif;
+}
+
+/* O IonContent usa o fundo da tela (igual ao Dashboard) */
+.transacoes-content {
+  --background: var(--bg);
+  --color: var(--text);
 }
 
 /* Modo claro: */
@@ -71,14 +67,22 @@
   outline-offset: 2px;
 }
 
-/* Mantem a barra fixa*/
+/* Contêiner fluido: ocupa a tela toda e centraliza em telas grandes */
 .transacoes {
-  flex: 1;
-  overflow-y: auto;
-  padding: 43px 24px calc(var(--nav-h) + 28px);
+  width: 100%;
+  max-width: 960px;
+  min-height: 100%;
+  margin: 0 auto;
+  padding: 43px 24px 28px;
   display: flex;
   flex-direction: column;
   gap: 15px;
+  color: var(--text);
+}
+
+/* Evita que busca, filtros e cards sejam amassados */
+.transacoes > * {
+  flex-shrink: 0;
 }
 
 /* Cabeçalho  */
@@ -180,8 +184,8 @@
 }
 
 .lista {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
   gap: 8px;
 }
 
@@ -255,23 +259,17 @@
   text-align: center;
 }
 
-/* Barra de navegação: tamanho, espaçamento e fonte vêm das regras globais
-   de .config-nav / .nav-item (Configuracoes.css), iguais às outras abas.
-   Aqui só fica o posicionamento fixo e as cores desta tela. */
-.tela-transacoes .config-nav {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 10;
-  background: var(--card);
-  border-top: 1px solid var(--border);
-}
+/* Telas maiores (tablet / computador) */
+@media (min-width: 768px) {
+  .transacoes {
+    padding: 56px 32px 40px;
+  }
 
-.tela-transacoes .nav-item {
-  color: var(--muted);
-}
+  .transacoes__titulo {
+    font-size: 22px;
+  }
 
-.tela-transacoes .nav-item--ativo {
-  color: var(--accent);
+  .card-transacao {
+    height: 64px;
+  }
 }
