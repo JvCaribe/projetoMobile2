@@ -113,8 +113,8 @@ const Configuracoes: React.FC = () => {
   }, []);
 
   return (
-    <IonPage className="config-pagina">
-      <IonContent fullscreen className="config-content">
+    <div className="config-pagina">
+      <div className="config-tela">
         <main className="config-conteudo">
           <h1 className="config-titulo">
             Configurações
@@ -149,12 +149,10 @@ const Configuracoes: React.FC = () => {
           {/* Informações sobre o aplicativo */}
           <CardSobre informacoes={INFO_APP} />
         </main>
-      </IonContent>
 
-      <IonFooter className="ion-no-border">
         <BarraNavegacao abaAtiva="configuracoes" />
-      </IonFooter>
-    </IonPage>
+      </div>
+    </div>
   );
 };
 

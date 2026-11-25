@@ -307,8 +307,8 @@ const DetalhesTransacoes: React.FC = () => {
   const ehReceita = tipo === 'receita';
 
   return (
-    <IonPage className="tela-detalhe">
-      <IonContent fullscreen className="detalhe-content">
+    <IonPage>
+      <div className="tela-detalhe">
         <main className="detalhe">
           <header className="detalhe__cabecalho">
             <button
@@ -420,25 +420,6 @@ const DetalhesTransacoes: React.FC = () => {
             Excluir Transação
           </button>
         </main>
-      </IonContent>
-
-      {confirmando && (
-        <div className="confirmar" onClick={() => setConfirmando(false)}>
-          <div
-            className="confirmar__folha"
-            role="alertdialog"
-            aria-modal="true"
-            aria-labelledby="confirmar-titulo"
-            aria-describedby="confirmar-texto"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <span className="confirmar__icone" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M10.3 4.2 2.9 17.1A2 2 0 0 0 4.6 20h14.8a2 2 0 0 0 1.7-2.9L13.7 4.2a2 2 0 0 0-3.4 0z" />
-                <path d="M12 9.5v4" />
-                <path d="M12 16.8h.01" />
-              </svg>
-            </span>
 
         {editando && (
           <div
@@ -659,8 +640,8 @@ const DetalhesTransacoes: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </IonPage>
   );
 };

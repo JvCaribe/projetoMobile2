@@ -185,6 +185,7 @@ const Transacoes: React.FC = () => {
         >
           {FILTROS.map(({ id, rotulo }) => (
             <button
+              key={id}
               type="button"
               className={`filtro ${
                 filtro === id ? "filtro--ativo" : ""
@@ -192,18 +193,7 @@ const Transacoes: React.FC = () => {
               aria-pressed={filtro === id}
               onClick={() => setFiltro(id)}
             >
-              <svg
-                width="26"
-                height="26"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.4"
-                strokeLinecap="round"
-                aria-hidden="true"
-              >
-                <path d="M12 5v14M5 12h14" />
-              </svg>
+              {rotulo}
             </button>
           ))}
         </div>
@@ -264,13 +254,8 @@ const Transacoes: React.FC = () => {
                         }}
                         aria-hidden="true"
                       >
-                        <span
-                          className="card-transacao__icone"
-                          style={{ color: cor, backgroundColor: `${cor}2E` }}
-                          aria-hidden="true"
-                        >
-                          {sigla}
-                        </span>
+                        {sigla}
+                      </span>
 
                       <span className="card-transacao__texto">
                         <span className="card-transacao__nome">
@@ -280,26 +265,24 @@ const Transacoes: React.FC = () => {
                         <span className="card-transacao__meta">
                           {t.categoria} · {formatarDia(t.data)}
                         </span>
+                      </span>
 
-                        <span
-                          className={`card-transacao__valor card-transacao__valor--${t.tipo}`}
-                        >
-                          {formatarValor(t.valor, t.tipo)}
-                        </span>
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
-            </section>
-          ))}
-        </main>
-      </IonContent>
+                      <span
+                        className={`card-transacao__valor card-transacao__valor--${t.tipo}`}
+                      >
+                        {formatarValor(t.valor, t.tipo)}
+                      </span>
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        ))}
+      </main>
 
-      <IonFooter className="ion-no-border">
-        <BarraNavegacao abaAtiva="transacoes" />
-      </IonFooter>
-    </IonPage>
+      <BarraNavegacao abaAtiva="transacoes" />
+    </div>
   );
 };
 
