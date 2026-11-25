@@ -1,0 +1,45 @@
+/* Avisos (toasts) do app. Ficam fora das telas, então usam os tokens globais (:root). */
+
+ion-toast.aviso {
+  --background: var(--cor-bloco, #111827);
+  --color: var(--cor-texto, #f8fafc);
+  --border-radius: 16px;
+  --box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+  --max-width: 420px;
+
+  font-family: 'Nunito Sans', system-ui, sans-serif;
+  font-size: 14px;
+}
+
+ion-toast.aviso::part(container) {
+  border: 1px solid var(--cor-borda, rgba(148, 163, 184, 0.14));
+  border-left-width: 4px;
+}
+
+ion-toast.aviso::part(icon) {
+  font-size: 22px;
+}
+
+/* Sucesso */
+ion-toast.aviso--sucesso::part(container) {
+  border-left-color: #10b981;
+}
+ion-toast.aviso--sucesso::part(icon) {
+  color: #10b981;
+}
+
+/* Erro */
+ion-toast.aviso--erro::part(container) {
+  border-left-color: #f43f5e;
+}
+ion-toast.aviso--erro::part(icon) {
+  color: #f43f5e;
+}
+
+/* Informação */
+ion-toast.aviso--info::part(container) {
+  border-left-color: #00a585;
+}
+ion-toast.aviso--info::part(icon) {
+  color: #00a585;
+}

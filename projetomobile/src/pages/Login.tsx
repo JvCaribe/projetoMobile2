@@ -1,9 +1,12 @@
 import { useState } from 'react';
-import { IonButton, IonContent, IonIcon, IonInput, IonPage } from '@ionic/react';
+import { IonButton, IonContent, IonIcon, IonInput, IonPage, useIonRouter } from '@ionic/react';
 import { eyeOutline, eyeOffOutline, walletOutline } from 'ionicons/icons';
+import { useAviso } from '../hooks/useAviso';
 import './Login.css';
 
 const Login: React.FC = () => {
+  const router = useIonRouter();
+  const aviso = useAviso();
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [mostrarSenha, setMostrarSenha] = useState(false);
@@ -24,17 +27,17 @@ const Login: React.FC = () => {
     const dados = await resposta.json();
 
     if (!resposta.ok) {
-      alert(dados.mensagem || 'Erro ao fazer login.');
+      aviso.erro(dados.mensagem || 'Erro ao fazer login.');
       return;
     }
 
     sessionStorage.setItem('finanza_token', dados.token);
 
-    alert('Login realizado com sucesso!');
-    window.location.href = '/dashboard';
+    aviso.sucesso('Login realizado com sucesso!');
+    router.push('/dashboard', 'root');
 
   } catch (erro) {
-    alert('Não foi possível conectar ao servidor.');
+    aviso.erro('Não foi possível conectar ao servidor.');
     console.error(erro);
   }
 };

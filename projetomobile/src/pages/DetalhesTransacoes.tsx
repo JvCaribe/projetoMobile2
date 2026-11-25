@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { CATEGORIAS, CATEGORIAS_POR_TIPO } from '../data/transacoes';
 import type { Categoria, Tipo, Transacao } from '../data/transacoes';
+import { useAviso } from '../hooks/useAviso';
 import './DetalhesTransacoes.css';
 
 type DadosEdicao = {
@@ -85,6 +86,7 @@ async function chamarAPI<T>(
 
 const DetalhesTransacoes: React.FC = () => {
   const navigate = useNavigate();
+  const aviso = useAviso();
   const { id } = useParams<{ id: string }>();
 
   const [transacao, setTransacao] = useState<Transacao | null>(null);
@@ -200,7 +202,7 @@ const DetalhesTransacoes: React.FC = () => {
       !edicao.categoria ||
       !edicao.data
     ) {
-      alert('Preencha todos os campos corretamente.');
+      aviso.erro('Preencha todos os campos corretamente.');
       return;
     }
 
@@ -226,9 +228,9 @@ const DetalhesTransacoes: React.FC = () => {
       });
 
       setEditando(false);
-      alert('Transação atualizada com sucesso!');
+      aviso.sucesso('Transação atualizada com sucesso!');
     } catch (erro) {
-      alert(
+      aviso.erro(
         erro instanceof Error
           ? erro.message
           : 'Não foi possível editar a transação.'
@@ -251,10 +253,10 @@ const DetalhesTransacoes: React.FC = () => {
       );
 
       setConfirmando(false);
-      alert('Transação excluída com sucesso!');
+      aviso.sucesso('Transação excluída com sucesso!');
       navigate('/transacoes', { replace: true });
     } catch (erro) {
-      alert(
+      aviso.erro(
         erro instanceof Error
           ? erro.message
           : 'Não foi possível excluir a transação.'

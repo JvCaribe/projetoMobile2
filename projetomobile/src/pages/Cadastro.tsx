@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { IonButton, IonContent, IonIcon, IonInput, IonPage, useIonRouter } from '@ionic/react';
 import { chevronBack } from 'ionicons/icons';
+import { useAviso } from '../hooks/useAviso';
 import './Cadastro.css';
 
 const MENSAGEM_ERRO = 'Atenda todos os campos.';
 
 const Cadastro: React.FC = () => {
   const router = useIonRouter();
+  const aviso = useAviso();
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
@@ -49,15 +51,15 @@ const handleCriarConta = async () => {
     const dados = await resposta.json();
 
     if (!resposta.ok) {
-      alert(dados.mensagem || 'Erro ao criar conta.');
+      aviso.erro(dados.mensagem || 'Erro ao criar conta.');
       return;
     }
 
-    alert('Conta criada com sucesso!');
+    aviso.sucesso('Conta criada com sucesso!');
     router.push('/login', 'root');
 
   } catch (erro) {
-    alert('Não foi possível conectar ao servidor.');
+    aviso.erro('Não foi possível conectar ao servidor.');
     console.error(erro);
   }
 };

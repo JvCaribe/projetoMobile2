@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { CATEGORIAS, CATEGORIAS_POR_TIPO } from '../data/transacoes';
 import type { Categoria, Tipo } from '../data/transacoes';
+import { useAviso } from '../hooks/useAviso';
 import './NovaTransacao.css';
 
 const MAX_DIGITOS = 9;
@@ -30,6 +31,7 @@ const formatarCentavos = (centavos: number): string =>
 
 const NovaTransacao: React.FC = () => {
   const navigate = useNavigate();
+  const aviso = useAviso();
 
   const [tipo, setTipo] = useState<Tipo>('despesa');
   const [centavos, setCentavos] = useState(0);
@@ -63,7 +65,7 @@ const salvar = async (e: React.FormEvent) => {
   const token = sessionStorage.getItem('finanza_token');
 
   if (!token) {
-    alert('Você precisa fazer login novamente.');
+    aviso.erro('Você precisa fazer login novamente.');
     navigate('/login');
     return;
   }
@@ -90,15 +92,15 @@ const salvar = async (e: React.FormEvent) => {
     const dados = await resposta.json();
 
     if (!resposta.ok) {
-      alert(dados.mensagem || 'Erro ao salvar transação.');
+      aviso.erro(dados.mensagem || 'Erro ao salvar transação.');
       return;
     }
 
-    alert('Transação salva com sucesso!');
+    aviso.sucesso('Transação salva com sucesso!');
     navigate('/transacoes', { replace: true });
 
   } catch (erro) {
-    alert('Não foi possível conectar ao servidor.');
+    aviso.erro('Não foi possível conectar ao servidor.');
     console.error(erro);
   }
 };
